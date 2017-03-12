@@ -1,0 +1,8 @@
+.serach-form, .list-of-nominees {
+  display: inline-block;
+  position: relative;
+}
+
+.search {
+  display: block;
+}
