@@ -1,8 +1,17 @@
-.serach-form, .list-of-nominees {
-  display: inline-block;
-  position: relative;
+.search-form {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 
-.search {
-  display: block;
+.list-of-nominees {
+  position: absolute;
+  top: 20px;
+  left: 200px;
+}
+
+.list-of-winners {
+  position: absolute;
+  top: 20px;
+  left: 400px;
 }

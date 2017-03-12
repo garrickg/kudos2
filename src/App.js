@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Chance from 'chance';
 import './App.css';
 import base from './base';
 import PeopleList from './components/peoplelist';
 import NomineeList from './components/nomineelist';
+import WinnerList from './components/winnerlist';
 
 class App extends Component {
 
@@ -49,6 +51,22 @@ class App extends Component {
     });
   }
 
+  pickWinner = () => {
+    let chance = new Chance();
+    let nominees = [...this.state.nominees];
+    const winners = [...this.state.winners];
+    if (nominees.length > 0) {
+      const winnerIndex = chance.integer({min:0, max: nominees.length - 1});
+      const winnerKey = nominees[winnerIndex].key;
+      winners.push(nominees[winnerIndex]);
+      nominees = nominees.filter(nominee => nominee.key !== winnerKey);
+      this.setState({
+        winners,
+        nominees
+      });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -57,6 +75,7 @@ class App extends Component {
         <PeopleList people={this.state.filtered} nominate={this.nominate} />
       </form>
       <NomineeList nominees={this.state.nominees} />
+      <WinnerList pickWinner={this.pickWinner} winners={this.state.winners} />
       </div>
     );
   }
