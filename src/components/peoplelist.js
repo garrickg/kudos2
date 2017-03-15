@@ -9,10 +9,11 @@ class PeopleList extends Component {
             <div className="list-of-people">
             {
                 Object
-                .keys(this.props.people)
-                .sort((a,b) => this.props.people[a].First > this.props.people[b].First ? 1 : -1)
-                .map(key => <Person key={key} name={this.props.people[key]} nominate={this.props.nominate} />)
+                .keys(this.props.filtered)
+                .sort((a,b) => this.props.filtered[a].First > this.props.filtered[b].First ? 1 : -1)
+                .map(key => <Person key={key} name={this.props.filtered[key]} nominate={this.props.nominate} search={false} />)
             }
+            <Person key={this.props.filtered.length} index={this.props.people.length} add={this.props.add} name={this.props.search} search={true} />
             </div>
         );
     }

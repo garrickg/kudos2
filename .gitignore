@@ -18,3 +18,4 @@ yarn-error.log*
 
 # secrets
 /src/base.js
+/src/people.json
