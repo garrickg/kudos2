@@ -1,0 +1,60 @@
+$colors: (#000000, #49176D, #787A7A, #D1CDD4, #FFFFFF, #F26721, #00B3DC, #00A48C);
+// Color Map: Black, SF Purple, Cool Grey, Light Grey, White, Orange, Blue, Green
+
+body {
+  overflow-y: hidden;
+}
+
+.search-form {
+  float: left;
+  width: calc(25% - 42px);
+  padding: 20px;
+  border: 1px solid nth($colors, 1);
+  height: calc(100vh - 42px);
+}
+
+.list-of-nominees {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  width: calc(50% - 42px);
+  padding: 20px;
+  border: 1px solid nth($colors, 1);
+  height: calc(100vh - 42px);
+}
+
+.list-of-winners {
+  float: right;
+  width: calc(25% - 42px);
+  padding: 20px;
+  border: 1px solid nth($colors, 1);
+  height: calc(100vh - 42px);
+}
+
+.person {
+  background: nth($colors, 4);
+  width: 100%;
+  border: 1px solid darken( nth($colors, 4), 10%);
+}
+
+.nominee {
+  display: flex;
+  background: nth($colors, 2);
+  border: 1px solid darken( nth($colors, 2), 10%);
+  margin: 10px 10px 0 0;
+}
+
+.winner {
+  background: nth($colors, 8);
+  width: 100%;
+  border: 1px solid darken( nth($colors, 8), 10%);
+}
+
+.person, .nominee, .winner {
+  margin: 0;
+  min-height: 40px;
+  text-align: center;
+  line-height: 40px;
+}

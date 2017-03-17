@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Chance from 'chance';
+import Moment from 'moment';
+import Base from './base';
 import './App.css';
-import base from './base';
 import PeopleList from './components/peoplelist';
 import NomineeList from './components/nomineelist';
 import WinnerList from './components/winnerlist';
@@ -18,17 +19,38 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // Fetch people data from Firebase
-    base.fetch('people', {
+
+    const today = Moment().format('LL');
+
+    this.peopleRef = Base.syncState(`people`, {
       context: this,
+      state: 'people',
       asArray: true,
-      then(data){
+      then(){
         this.setState({
-          people: data,
-          filtered: data
+          filtered: this.state.people
         });
       }
     });
+
+    this.nomineesRef = Base.syncState(`nominees/${today}`, {
+      context: this,
+      state: 'nominees',
+      asArray: true
+    });
+
+    this.winnersRef = Base.syncState(`winners/${today}`, {
+      context: this,
+      state: 'winners',
+      asArray: true
+    });
+  }
+
+  // Removed DB bindings on close
+  componentWillUnmount(){
+    Base.removeBinding(this.peopleRef);
+    Base.removeBinding(this.nomineesRef);
+    Base.removeBinding(this.winnersRef);
   }
 
   filter = (e) => {
@@ -41,7 +63,6 @@ class App extends Component {
       const regex = new RegExp(search, 'gi');
       return person.First.match(regex) || person.Last.match(regex) || (`${person.First} ${person.Last}`).match(regex)
     });
-    // Update state with filtered list of people and search string
     this.setState({
       filtered,
       search
@@ -51,13 +72,20 @@ class App extends Component {
   nominate = (e) => {
     // Copy current list of nominees
     const nominees = [...this.state.nominees];
+    const nomineeKey = e.target.dataset.key;
+    const nominee = {
+      First: this.state.people[nomineeKey].First,
+      Last: this.state.people[nomineeKey].Last
+    }
+
     // Add clicked name to list of nominees
-    nominees.push(this.state.people[e.target.dataset.key])
-    // Update state with new list of nominees, and reset filtered list
+    nominees.push(nominee);
+
     this.setState({
       nominees,
       filtered: this.state.people
     });
+
     // Clear search input box
     document.querySelector('.search-box').value = "";
   }
@@ -72,13 +100,11 @@ class App extends Component {
     if (nominees.length > 0) {
       // Pick winner from list of nominees
       const winnerIndex = chance.integer({min:0, max: nominees.length - 1});
-      // Get winner's key
-      const winnerKey = nominees[winnerIndex].key;
+      const winner = nominees[winnerIndex]
       // Add winner to winners list
-      winners.push(nominees[winnerIndex]);
+      winners.push(winner);
       // Remove all instances of winner from nominees list
-      nominees = nominees.filter(nominee => nominee.key !== winnerKey);
-      // Update state with new winners and nominees lists
+      nominees = nominees.filter(nominee => nominee.First !== winner.First && nominee.Last !== winner.Last);
       this.setState({
         winners,
         nominees
@@ -89,9 +115,11 @@ class App extends Component {
   undo = () => {
     // Copy list of nominees from state
     let nominees = [...this.state.nominees];
+
     if (nominees.length > 0) {
       nominees.pop();
     }
+
     this.setState({
       nominees
     });
@@ -104,35 +132,18 @@ class App extends Component {
 
     const people = [...this.state.people];
     const nominees = [...this.state.nominees];
+    const person = {
+      First: first,
+      Last: last,
+      key
+    };
 
     // Add new person to list of people
-    people.push({
-      First: first,
-      Last: last,
-      key
-    });
+    people.push(person);
     
     // Nominate new person
-    nominees.push({
-      First: first,
-      Last: last,
-      key
-    });
-    
-    // Add new record to Firebase DB
-    base.update(`people/${key}`, {
-      data: {
-          First: first,
-          Last: last
-      },
-      then(err){
-        if(!err){
-          console.log(`Added ${first} ${last} to database`);
-        }
-      }
-    });
+    nominees.push(person);
 
-    // Update app state
     this.setState({
       people,
       nominees,

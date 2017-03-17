@@ -1,17 +1,49 @@
+body {
+  overflow-y: hidden; }
+
 .search-form {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
+  float: left;
+  width: calc(25% - 42px);
+  padding: 20px;
+  border: 1px solid #000000;
+  height: calc(100vh - 42px); }
 
 .list-of-nominees {
-  position: absolute;
-  top: 20px;
-  left: 200px;
-}
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  width: calc(50% - 42px);
+  padding: 20px;
+  border: 1px solid #000000;
+  height: calc(100vh - 42px); }
 
 .list-of-winners {
-  position: absolute;
-  top: 20px;
-  left: 400px;
-}
+  float: right;
+  width: calc(25% - 42px);
+  padding: 20px;
+  border: 1px solid #000000;
+  height: calc(100vh - 42px); }
+
+.person {
+  background: #D1CDD4;
+  width: 100%;
+  border: 1px solid #b8b2bc; }
+
+.nominee {
+  display: flex;
+  background: #49176D;
+  border: 1px solid #2d0e43;
+  margin: 10px 10px 0 0; }
+
+.winner {
+  background: #00A48C;
+  width: 100%;
+  border: 1px solid #007160; }
+
+.person, .nominee, .winner {
+  margin: 0;
+  min-height: 40px;
+  text-align: center;
+  line-height: 40px; }

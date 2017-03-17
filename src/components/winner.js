@@ -5,7 +5,7 @@ class Winner extends Component {
 
   render() {
     return (
-        <p data-key={this.props.index}>
+        <p className="winner" data-key={this.props.index}>
             {`${this.props.name.First} ${this.props.name.Last}`}
         </p>
     );
