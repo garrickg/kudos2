@@ -1,16 +1,43 @@
 $colors: (#000000, #49176D, #787A7A, #D1CDD4, #FFFFFF, #F26721, #00B3DC, #00A48C);
 // Color Map: Black, SF Purple, Cool Grey, Light Grey, White, Orange, Blue, Green
 
+//media queries
+$media-lg: 1200px;
+$media-med: 1024px;
+$media-sm: 720px;
+
 body {
   overflow-y: hidden;
+  background: nth($colors, 3);
+}
+
+@media only screen and (max-width: $media-sm) {
+  .search-form {width: calc(30% - 42px);}
+  .list-of-nominees {width: calc(40% - 42px);}
+  .list-of-winners {width: calc(30% - 42px);}
+  .undo-button {right: calc(30% + 1px);}
+}
+
+@media only screen and (max-width: $media-med) {
+  .search-form {width: calc(25% - 42px);}
+  .list-of-nominees {width: calc(50% - 42px);}
+  .list-of-winners {width: calc(25% - 42px);}
+  .undo-button {right: calc(25% + 1px);}
+}
+
+@media only screen and (min-width: $media-lg) {
+  .search-form {width: 250px;}
+  .list-of-nominees {width: calc(100% - 626px);}
+  .list-of-winners {width: 250px;}
+  .undo-button {right: 293px;}
 }
 
 .search-form {
   float: left;
-  width: calc(25% - 42px);
   padding: 20px;
   border: 1px solid nth($colors, 1);
   height: calc(100vh - 42px);
+  font-family: 'Open Sans', sans-serif;
 }
 
 .list-of-nominees {
@@ -19,18 +46,18 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  width: calc(50% - 42px);
   padding: 20px;
   border: 1px solid nth($colors, 1);
   height: calc(100vh - 42px);
+  font-family: 'Open Sans', sans-serif;
 }
 
 .list-of-winners {
   float: right;
-  width: calc(25% - 42px);
   padding: 20px;
   border: 1px solid nth($colors, 1);
   height: calc(100vh - 42px);
+  font-family: 'Open Sans', sans-serif;
 }
 
 .person {
@@ -40,21 +67,77 @@ body {
 }
 
 .nominee {
-  display: flex;
+  color: nth($colors, 5);
   background: nth($colors, 2);
-  border: 1px solid darken( nth($colors, 2), 10%);
-  margin: 10px 10px 0 0;
+  border: 2px solid darken( nth($colors, 2), 10%);
+  padding: 0 10px 0 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .winner {
   background: nth($colors, 8);
   width: 100%;
-  border: 1px solid darken( nth($colors, 8), 10%);
+  border: 2px solid darken( nth($colors, 8), 10%);
+  color: nth($colors, 5);
 }
 
-.person, .nominee, .winner {
-  margin: 0;
+.add-name {
+  background: nth($colors, 6);
+  width: 100%;
+  border: 2px solid darken( nth($colors, 6), 10%);
+}
+
+.person, .nominee, .winner, .add-name {
   min-height: 40px;
+  max-height: 80px;
   text-align: center;
   line-height: 40px;
+  border-radius:  5px;
+}
+
+.search-box {
+  height: 40px;
+  padding: 0 10px 0 10px;
+  width: calc(100% - 20px);
+  border-radius: 5px;
+}
+
+.hl {
+  font-weight: bold;
+}
+
+.undo-button {
+  position: fixed;
+  bottom: 1px;
+  height: 40px;
+  width: 40px;
+  border-top-left-radius: 40px;
+  background-color: nth($colors, 6);
+  border: 2px solid darken( nth($colors, 6), 10%);
+  color: nth($colors, 5);
+  font-size: 1.5em;
+  padding: 0 2px 0 10px;
+}
+
+.fa-undo {
+  vertical-align: sub;
+}
+
+.win-button {
+  position: fixed;
+  bottom: 1px;
+  right: 1px;
+  height: 40px;
+  width: 40px;
+  border-top-left-radius: 40px;
+  background-color: nth($colors, 7);
+  border: 2px solid darken( nth($colors, 7), 10%);
+  color: nth($colors, 5);
+  font-size: 1.5em;
+  padding: 0 2px 0 10px;
+}
+
+.fa-trophy {
+  vertical-align: sub;
 }

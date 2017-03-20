@@ -5,15 +5,23 @@ class Person extends Component {
 
   render() {
     if (!this.props.search) {
+      let fullName = `${this.props.name.First} ${this.props.name.Last}`;
+      if (this.props.highlight){
+        let regex = new RegExp(this.props.highlight, 'gi');
+        fullName = fullName.replace(regex, (match) => {
+          return `<span class="hl">${match}</span>`
+        });
+        console.log(fullName);
+      }
       return (
         <p className="person">
-          <a onClick={this.props.nominate} data-key={this.props.name.key}>{`${this.props.name.First} ${this.props.name.Last}`}</a> 
+          <a onClick={this.props.nominate} data-key={this.props.name.key} dangerouslySetInnerHTML={{__html: fullName}}></a> 
         </p>
       );
     }
     else {
       return (
-        <p style={!this.props.name ? {display: 'none'} : {}}>
+        <p className="add-name" style={!this.props.name ? {display: 'none'} : {}}>
           <a onClick={this.props.add} data-key={this.props.index} data-search={this.props.name}>{`Add ${this.props.name}`}</a> 
         </p>
       )

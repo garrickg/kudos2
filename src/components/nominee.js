@@ -5,9 +5,9 @@ class Nominee extends Component {
 
   render() {
     return (
-        <p className="nominee" data-key={this.props.index}>
+        <span className="nominee" data-key={this.props.index}>
             {`${this.props.name.First} ${this.props.name.Last}`}
-        </p>
+        </span>
     );
   }
 }

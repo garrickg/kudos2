@@ -1,12 +1,43 @@
 body {
-  overflow-y: hidden; }
+  overflow-y: hidden;
+  background: #787A7A; }
+
+@media only screen and (max-width: 720px) {
+  .search-form {
+    width: calc(30% - 42px); }
+  .list-of-nominees {
+    width: calc(40% - 42px); }
+  .list-of-winners {
+    width: calc(30% - 42px); }
+  .undo-button {
+    right: calc(30% + 1px); } }
+
+@media only screen and (max-width: 1024px) {
+  .search-form {
+    width: calc(25% - 42px); }
+  .list-of-nominees {
+    width: calc(50% - 42px); }
+  .list-of-winners {
+    width: calc(25% - 42px); }
+  .undo-button {
+    right: calc(25% + 1px); } }
+
+@media only screen and (min-width: 1200px) {
+  .search-form {
+    width: 250px; }
+  .list-of-nominees {
+    width: calc(100% - 626px); }
+  .list-of-winners {
+    width: 250px; }
+  .undo-button {
+    right: 293px; } }
 
 .search-form {
   float: left;
-  width: calc(25% - 42px);
   padding: 20px;
   border: 1px solid #000000;
-  height: calc(100vh - 42px); }
+  height: calc(100vh - 42px);
+  font-family: 'Open Sans', sans-serif; }
 
 .list-of-nominees {
   display: inline-flex;
@@ -14,17 +45,17 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  width: calc(50% - 42px);
   padding: 20px;
   border: 1px solid #000000;
-  height: calc(100vh - 42px); }
+  height: calc(100vh - 42px);
+  font-family: 'Open Sans', sans-serif; }
 
 .list-of-winners {
   float: right;
-  width: calc(25% - 42px);
   padding: 20px;
   border: 1px solid #000000;
-  height: calc(100vh - 42px); }
+  height: calc(100vh - 42px);
+  font-family: 'Open Sans', sans-serif; }
 
 .person {
   background: #D1CDD4;
@@ -32,18 +63,67 @@ body {
   border: 1px solid #b8b2bc; }
 
 .nominee {
-  display: flex;
+  color: #FFFFFF;
   background: #49176D;
-  border: 1px solid #2d0e43;
-  margin: 10px 10px 0 0; }
+  border: 2px solid #2d0e43;
+  padding: 0 10px 0 10px;
+  margin-right: 10px;
+  margin-bottom: 10px; }
 
 .winner {
   background: #00A48C;
   width: 100%;
-  border: 1px solid #007160; }
+  border: 2px solid #007160;
+  color: #FFFFFF; }
 
-.person, .nominee, .winner {
-  margin: 0;
+.add-name {
+  background: #F26721;
+  width: 100%;
+  border: 2px solid #d44f0c; }
+
+.person, .nominee, .winner, .add-name {
   min-height: 40px;
+  max-height: 80px;
   text-align: center;
-  line-height: 40px; }
+  line-height: 40px;
+  border-radius: 5px; }
+
+.search-box {
+  height: 40px;
+  padding: 0 10px 0 10px;
+  width: calc(100% - 20px);
+  border-radius: 5px; }
+
+.hl {
+  font-weight: bold; }
+
+.undo-button {
+  position: fixed;
+  bottom: 1px;
+  height: 40px;
+  width: 40px;
+  border-top-left-radius: 40px;
+  background-color: #F26721;
+  border: 2px solid #d44f0c;
+  color: #FFFFFF;
+  font-size: 1.5em;
+  padding: 0 2px 0 10px; }
+
+.fa-undo {
+  vertical-align: sub; }
+
+.win-button {
+  position: fixed;
+  bottom: 1px;
+  right: 1px;
+  height: 40px;
+  width: 40px;
+  border-top-left-radius: 40px;
+  background-color: #00B3DC;
+  border: 2px solid #008aa9;
+  color: #FFFFFF;
+  font-size: 1.5em;
+  padding: 0 2px 0 10px; }
+
+.fa-trophy {
+  vertical-align: sub; }

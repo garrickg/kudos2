@@ -7,7 +7,7 @@ class NomineeList extends Component {
     render() {
         return (
             <div className="list-of-nominees">
-                <button onClick={this.props.undo}>Undo</button>
+                <button className="undo-button" onClick={this.props.undo}> <i className="fa fa-undo" aria-hidden="true"></i></button>
                 {
                     Object
                     .keys(this.props.nominees)

@@ -46,14 +46,20 @@ class App extends Component {
     });
   }
 
+  componentDidMount() {
+    let input = document.querySelector('.search-box');
+    input.focus();
+  }
+
   // Removed DB bindings on close
-  componentWillUnmount(){
+  componentWillUnmount() {
     Base.removeBinding(this.peopleRef);
     Base.removeBinding(this.nomineesRef);
     Base.removeBinding(this.winnersRef);
   }
 
   filter = (e) => {
+    e.preventDefault();
     // Get search string
     const search = e.target.value;
     // Copy current list of people from state
@@ -87,7 +93,9 @@ class App extends Component {
     });
 
     // Clear search input box
-    document.querySelector('.search-box').value = "";
+    let input = document.querySelector('.search-box');
+    input.value = "";
+    input.focus();
   }
 
   pickWinner = () => {

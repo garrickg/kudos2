@@ -7,7 +7,7 @@ class WinnerList extends Component {
     render() {
         return (
             <div className="list-of-winners">
-                <button onClick={this.props.pickWinner}>Pick a Winner!</button>
+                <button className="win-button" onClick={this.props.pickWinner}><i className="fa fa-trophy" aria-hidden="true"></i></button>
                 {
                     Object
                     .keys(this.props.winners)
