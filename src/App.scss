@@ -9,35 +9,56 @@ $media-sm: 720px;
 body {
   overflow-y: hidden;
   background: nth($colors, 3);
+  user-select: none;
 }
 
-@media only screen and (max-width: $media-sm) {
-  .search-form {width: calc(30% - 42px);}
-  .list-of-nominees {width: calc(40% - 42px);}
-  .list-of-winners {width: calc(30% - 42px);}
-  .undo-button {right: calc(30% + 1px);}
-}
+@media screen
+  and (max-width: $media-sm) {
+    .search-form {width: calc(30% - 82px);}
+    .list-of-nominees {width: calc(40% - 82px);}
+    .list-of-winners {width: calc(30% - 82px);}
+    .undo-button {right: calc(30% + 21px);}
+    .search-form, .nominee, .winner, .add-name {font-size: 2vw;}
+  }
 
-@media only screen and (max-width: $media-med) {
-  .search-form {width: calc(25% - 42px);}
-  .list-of-nominees {width: calc(50% - 42px);}
-  .list-of-winners {width: calc(25% - 42px);}
-  .undo-button {right: calc(25% + 1px);}
-}
+@media screen
+  and (min-width: $media-sm)
+  and (max-width: $media-med) {
+    .search-form {width: calc(25% - 82px);}
+    .list-of-nominees {width: calc(50% - 82px);}
+    .list-of-winners {width: calc(25% - 82px);}
+    .undo-button {right: calc(25% + 21px);}
+    .search-form, .nominee, .winner, .add-name {font-size: 1.5vw;}
+  }
 
-@media only screen and (min-width: $media-lg) {
-  .search-form {width: 250px;}
-  .list-of-nominees {width: calc(100% - 626px);}
-  .list-of-winners {width: 250px;}
-  .undo-button {right: 293px;}
+@media screen
+  and (min-width: $media-med) {
+    .search-form {width: 230px;}
+    .list-of-nominees {width: calc(100% - 706px);}
+    .list-of-winners {width: 230px;}
+    .undo-button {right: 333px;}
+    .search-form, .nominee, .winner, .add-name {font-size: 1.25vw;}
+  }
+
+.search-form, .list-of-nominees, .list-of-winners {
+  padding: 20px;
+  font-family: 'Open Sans', sans-serif;
+  height: calc(100vh - 162px);
+  margin: 20px;
+  background-color: nth($colors, 4);
+  border: 1px solid darken(nth($colors, 4), 5%);
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px darken( nth($colors, 3), 20%);
 }
 
 .search-form {
   float: left;
-  padding: 20px;
-  border: 1px solid nth($colors, 1);
-  height: calc(100vh - 42px);
-  font-family: 'Open Sans', sans-serif;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .list-of-nominees {
@@ -46,54 +67,61 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  padding: 20px;
-  border: 1px solid nth($colors, 1);
-  height: calc(100vh - 42px);
-  font-family: 'Open Sans', sans-serif;
 }
 
 .list-of-winners {
   float: right;
-  padding: 20px;
-  border: 1px solid nth($colors, 1);
-  height: calc(100vh - 42px);
-  font-family: 'Open Sans', sans-serif;
 }
 
 .person {
-  background: nth($colors, 4);
+  color: nth($colors, 5);
+  background: nth($colors, 3);
   width: 100%;
-  border: 1px solid darken( nth($colors, 4), 10%);
+  border: 1px solid darken( nth($colors, 3), 5%);
+  &:hover {
+    color: darken( nth($colors, 5), 10%);
+    background: darken( nth($colors, 3), 10%);
+  }
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px nth($colors, 3);
+  }
+  a {
+    display: block;
+  }
+  cursor: pointer;
 }
 
 .nominee {
   color: nth($colors, 5);
   background: nth($colors, 2);
-  border: 2px solid darken( nth($colors, 2), 10%);
+  border: 2px solid darken( nth($colors, 2), 5%);
   padding: 0 10px 0 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin: 0 10px 10px 0;
+  cursor: default;
 }
 
 .winner {
   background: nth($colors, 8);
   width: 100%;
-  border: 2px solid darken( nth($colors, 8), 10%);
+  border: 2px solid darken( nth($colors, 8), 5%);
   color: nth($colors, 5);
+  margin: 0 0 10px 0;
+  cursor: default;
 }
 
 .add-name {
   background: nth($colors, 6);
   width: 100%;
-  border: 2px solid darken( nth($colors, 6), 10%);
+  border: 2px solid darken( nth($colors, 6), 5%);
 }
 
 .person, .nominee, .winner, .add-name {
-  min-height: 40px;
-  max-height: 80px;
+  height: 40px;
   text-align: center;
   line-height: 40px;
-  border-radius:  5px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px darken( nth($colors, 4), 20%);
 }
 
 .search-box {
@@ -101,43 +129,81 @@ body {
   padding: 0 10px 0 10px;
   width: calc(100% - 20px);
   border-radius: 5px;
+  outline: 0;
 }
 
 .hl {
   font-weight: bold;
+  text-decoration: underline;
 }
 
 .undo-button {
-  position: fixed;
-  bottom: 1px;
-  height: 40px;
-  width: 40px;
-  border-top-left-radius: 40px;
   background-color: nth($colors, 6);
   border: 2px solid darken( nth($colors, 6), 10%);
-  color: nth($colors, 5);
-  font-size: 1.5em;
-  padding: 0 2px 0 10px;
-}
-
-.fa-undo {
-  vertical-align: sub;
+  &:hover {
+    background-color: darken(nth($colors, 6), 10%);
+    border-color: darken(nth($colors, 6), 20%)
+  }
 }
 
 .win-button {
-  position: fixed;
-  bottom: 1px;
-  right: 1px;
-  height: 40px;
-  width: 40px;
-  border-top-left-radius: 40px;
+  right: 21px;
   background-color: nth($colors, 7);
   border: 2px solid darken( nth($colors, 7), 10%);
-  color: nth($colors, 5);
-  font-size: 1.5em;
-  padding: 0 2px 0 10px;
+  &:hover {
+    background-color: darken(nth($colors, 7), 10%);
+    border-color: darken(nth($colors, 7), 20%)
+  }
 }
 
-.fa-trophy {
+.fa-trophy, .fa-undo {
   vertical-align: sub;
+}
+
+.win-button, .undo-button {
+  color: nth($colors, 5);
+  position: fixed;
+  bottom: 21px;
+  height: 60px;
+  width: 60px;
+  border-top-left-radius: 60px;
+  border-bottom-right-radius: 5px;
+  font-size: 2em;
+  padding: 0 0 0 12px;
+  box-shadow: 1px 1px 2px nth($colors, 1);
+  cursor: pointer;
+  &:hover {
+    color: darken(nth($colors, 5), 20%);
+  }
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+
+.counter {
+  position: fixed;
+  bottom: 26px;
+  font-size: 2em;
+  color: nth($colors, 5);
+}
+
+.header {
+  height: 60px;
+  background-color: nth($colors, 2);
+  color: nth($colors, 5);
+  font-size: 50px;
+  padding: 10px 20px 10px 20px;
+  font-family: 'Open Sans', sans-serif;
+  .small {
+    font-size: 12px;
+  }
+}
+
+.logo {
+  height: 60px;
+  float: right;
 }

@@ -13,6 +13,7 @@ class NomineeList extends Component {
                     .keys(this.props.nominees)
                     .map(key => <Nominee key={key} name={this.props.nominees[key]} index={key}/>)
                 }
+                <span className="counter">{this.props.nominees.length}</span>
             </div>
         );
     }

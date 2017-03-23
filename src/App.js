@@ -3,6 +3,7 @@ import Chance from 'chance';
 import Moment from 'moment';
 import Base from './base';
 import './App.css';
+import Logo from '../public/logo_white.png';
 import PeopleList from './components/peoplelist';
 import NomineeList from './components/nomineelist';
 import WinnerList from './components/winnerlist';
@@ -89,7 +90,8 @@ class App extends Component {
 
     this.setState({
       nominees,
-      filtered: this.state.people
+      filtered: this.state.people,
+      search: ""
     });
 
     // Clear search input box
@@ -112,7 +114,7 @@ class App extends Component {
       // Add winner to winners list
       winners.push(winner);
       // Remove all instances of winner from nominees list
-      nominees = nominees.filter(nominee => nominee.First !== winner.First && nominee.Last !== winner.Last);
+      nominees = nominees.filter(nominee => !(nominee.First === winner.First && nominee.Last === winner.Last));
       this.setState({
         winners,
         nominees
@@ -166,12 +168,17 @@ class App extends Component {
   render() {
     return (
       <div>
-      <form className="search-form">
-        <input type="text" className="search-box" placeholder="Search..." onChange={this.filter} />
-        <PeopleList people={this.state.people} filtered={this.state.filtered} nominate={this.nominate} add={this.add} search={this.state.search} />
-      </form>
-      <NomineeList nominees={this.state.nominees} undo={this.undo} />
-      <WinnerList pickWinner={this.pickWinner} winners={this.state.winners} />
+        <div className="header">
+          <span>Kudos</span>
+          <span className="small"> v2.0</span>
+          <img className="logo" src={Logo} alt="StarFish Logo"/>
+        </div>
+        <form className="search-form">
+          <input type="text" className="search-box" placeholder="Search..." onChange={this.filter} />
+          <PeopleList people={this.state.people} filtered={this.state.filtered} nominate={this.nominate} add={this.add} search={this.state.search} />
+        </form>
+        <NomineeList nominees={this.state.nominees} undo={this.undo} />
+        <WinnerList pickWinner={this.pickWinner} winners={this.state.winners} />
       </div>
     );
   }

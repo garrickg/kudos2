@@ -11,7 +11,6 @@ class Person extends Component {
         fullName = fullName.replace(regex, (match) => {
           return `<span class="hl">${match}</span>`
         });
-        console.log(fullName);
       }
       return (
         <p className="person">
