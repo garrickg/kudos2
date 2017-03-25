@@ -16,8 +16,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .css
-/public/*.png
+
 
 # secrets
-/src/base.js
+
 /src/people.json
