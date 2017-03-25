@@ -206,4 +206,25 @@ body {
 .logo {
   height: 60px;
   float: right;
+  cursor: pointer;
+}
+
+.login-button {
+  height: 80px;
+  width: 120px;
+  background-color: nth($colors, 2);
+  color: nth($colors, 5);
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  left: calc(50vw - 60px);
+  top: calc(50vh - 100px);
+  box-shadow: 2px 10px 10px darken( nth($colors, 3), 20% );
+  outline: none;
+  &:active {
+    transform: translateY(5px);
+    box-shadow: 2px 5px 5px darken( nth($colors, 3), 20% );
+  }
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2em;
 }

@@ -1,185 +1,108 @@
 import React, { Component } from 'react';
-import Chance from 'chance';
-import Moment from 'moment';
-import Base from './base';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.css';
+import Base from './base';
 import Logo from '../public/logo_white.png';
-import PeopleList from './components/peoplelist';
-import NomineeList from './components/nomineelist';
-import WinnerList from './components/winnerlist';
+import Kudos from './components/kudos'
+import Login from './components/login';
+import Logout from './components/logout';
+import NotFound from './components/notfound';
+
+// PrivateRoute will render protected component with props if logged in, and redirect to login page otherwise
+function PrivateRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+    />
+  )
+}
+
+// Public Route will render unprotected component if logged out, otherwise will redirect to kudos component
+function PublicRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === false
+        ? <Component {...props} />
+        : <Redirect to='/kudos' />}
+    />
+  )
+}
 
 class App extends Component {
-
-  // Setting intial state
+  
   state = {
-    people: [], // Complete list of people
-    search: "", // User entered search string
-    filtered: [], // List of people filtered based on search string
-    nominees: [], // List of people nominated
-    winners: [] // List of winners
+    uid: null,
+    authed: false,
+    loading: true,
+    modalOpen: false
   }
 
-  componentWillMount() {
-
-    const today = Moment().format('LL');
-
-    this.peopleRef = Base.syncState(`people`, {
-      context: this,
-      state: 'people',
-      asArray: true,
-      then(){
+  // Adds auth listener to firebase
+  componentDidMount () {
+    this.removeListener = Base.onAuth((user) => {
+      if (user) {
         this.setState({
-          filtered: this.state.people
-        });
+          authed: true,
+          uid: user.uid,
+          loading: false
+        })
+      } else {
+        this.setState({
+          authed: false,
+          loading: false,
+          uid: null
+        })
       }
-    });
-
-    this.nomineesRef = Base.syncState(`nominees/${today}`, {
-      context: this,
-      state: 'nominees',
-      asArray: true
-    });
-
-    this.winnersRef = Base.syncState(`winners/${today}`, {
-      context: this,
-      state: 'winners',
-      asArray: true
-    });
-  }
-
-  componentDidMount() {
-    let input = document.querySelector('.search-box');
-    input.focus();
-  }
-
-  // Removed DB bindings on close
-  componentWillUnmount() {
-    Base.removeBinding(this.peopleRef);
-    Base.removeBinding(this.nomineesRef);
-    Base.removeBinding(this.winnersRef);
-  }
-
-  filter = (e) => {
-    e.preventDefault();
-    // Get search string
-    const search = e.target.value;
-    // Copy current list of people from state
-    const people = [...this.state.people];
-    // Filter list of people base on search string regex
-    const filtered = people.filter(person => {
-      const regex = new RegExp(search, 'gi');
-      return person.First.match(regex) || person.Last.match(regex) || (`${person.First} ${person.Last}`).match(regex)
-    });
-    this.setState({
-      filtered,
-      search
     })
   }
 
-  nominate = (e) => {
-    // Copy current list of nominees
-    const nominees = [...this.state.nominees];
-    const nomineeKey = e.target.dataset.key;
-    const nominee = {
-      First: this.state.people[nomineeKey].First,
-      Last: this.state.people[nomineeKey].Last
-    }
-
-    // Add clicked name to list of nominees
-    nominees.push(nominee);
-
-    this.setState({
-      nominees,
-      filtered: this.state.people,
-      search: ""
-    });
-
-    // Clear search input box
-    let input = document.querySelector('.search-box');
-    input.value = "";
-    input.focus();
+  // Unbinds auth listener
+  componentWillUnmount () {
+    this.removeListener();
   }
 
-  pickWinner = () => {
-    // Instantiate Chance
-    let chance = new Chance();
-    // Copy list of nominees and winners
-    let nominees = [...this.state.nominees];
-    const winners = [...this.state.winners];
-    // Check if no nominees
-    if (nominees.length > 0) {
-      // Pick winner from list of nominees
-      const winnerIndex = chance.integer({min:0, max: nominees.length - 1});
-      const winner = nominees[winnerIndex]
-      // Add winner to winners list
-      winners.push(winner);
-      // Remove all instances of winner from nominees list
-      nominees = nominees.filter(nominee => !(nominee.First === winner.First && nominee.Last === winner.Last));
+  openModal = () => {
+    if (this.state.authed) {
       this.setState({
-        winners,
-        nominees
+        modalOpen: true
       });
     }
   }
 
-  undo = () => {
-    // Copy list of nominees from state
-    let nominees = [...this.state.nominees];
-
-    if (nominees.length > 0) {
-      nominees.pop();
-    }
-
+  logout = () => {
+    Base.unauth();
     this.setState({
-      nominees
+      modalOpen: false
     });
   }
 
-  add = (e) => {
-    // Get first and last name, and create new key/index
-    const [first = "", last = ""] = e.target.dataset.search.split(' ');
-    const key = e.target.dataset.key;
-
-    const people = [...this.state.people];
-    const nominees = [...this.state.nominees];
-    const person = {
-      First: first,
-      Last: last,
-      key
-    };
-
-    // Add new person to list of people
-    people.push(person);
-    
-    // Nominate new person
-    nominees.push(person);
-
+  closeModal = () => {
     this.setState({
-      people,
-      nominees,
-      filtered: people
+      modalOpen: false
     });
-
-    // Clear search box
-    document.querySelector('.search-box').value = "";
-
   }
 
   render() {
-    return (
-      <div>
-        <div className="header">
-          <span>Kudos</span>
-          <span className="small"> v2.0</span>
-          <img className="logo" src={Logo} alt="StarFish Logo"/>
+    return this.state.loading === true ? <h1>Loading</h1> : (
+      <BrowserRouter>
+        <div>
+          <div className="header">
+            <span>Kudos</span>
+            <span className="small"> v2.0</span>
+            <img onClick={this.openModal} className="logo" src={Logo} alt="StarFish Logo"/>
+          </div>
+          <Logout open={this.state.modalOpen} logout={this.logout} close={this.closeModal} />
+          <Switch>
+            <PublicRoute authed={this.state.authed} path='/login' component={Login} />
+            <PrivateRoute authed={this.state.authed} path='/kudos' component={Kudos} />
+            <PublicRoute component={NotFound} />
+          </Switch>
         </div>
-        <form className="search-form">
-          <input type="text" className="search-box" placeholder="Search..." onChange={this.filter} />
-          <PeopleList people={this.state.people} filtered={this.state.filtered} nominate={this.nominate} add={this.add} search={this.state.search} />
-        </form>
-        <NomineeList nominees={this.state.nominees} undo={this.undo} />
-        <WinnerList pickWinner={this.pickWinner} winners={this.state.winners} />
-      </div>
+      </BrowserRouter>
     );
   }
 }
