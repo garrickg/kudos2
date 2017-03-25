@@ -6,6 +6,29 @@ $media-lg: 1200px;
 $media-med: 1024px;
 $media-sm: 720px;
 
+@mixin button-effect($color) {
+  border-top-color: lighten($color, 10%);
+  border-left-color: lighten($color, 10%);
+  border-right-color: darken($color, 10%);
+  border-bottom-color: darken($color, 10%);
+  &:active {
+    border-top-color: darken($color, 10%);
+    border-left-color: darken($color, 10%);
+    border-right-color: lighten($color, 10%);
+    border-bottom-color: lighten($color, 10%);
+  }
+  &:hover {
+    background-color: darken($color, 5%);
+  }
+  cursor: pointer;
+  outline: none;
+}
+
+*{
+  font-family: 'Open Sans', sans-serif;
+  color: nth($colors, 5);
+}
+
 body {
   overflow-y: hidden;
   background: nth($colors, 3);
@@ -17,7 +40,7 @@ body {
     .search-form {width: calc(30% - 82px);}
     .list-of-nominees {width: calc(40% - 82px);}
     .list-of-winners {width: calc(30% - 82px);}
-    .undo-button {right: calc(30% + 21px);}
+    .undo-button {right: calc(30% + 20px);}
     .search-form, .nominee, .winner, .add-name {font-size: 2vw;}
   }
 
@@ -27,7 +50,7 @@ body {
     .search-form {width: calc(25% - 82px);}
     .list-of-nominees {width: calc(50% - 82px);}
     .list-of-winners {width: calc(25% - 82px);}
-    .undo-button {right: calc(25% + 21px);}
+    .undo-button {right: calc(25% + 20px);}
     .search-form, .nominee, .winner, .add-name {font-size: 1.5vw;}
   }
 
@@ -36,13 +59,12 @@ body {
     .search-form {width: 230px;}
     .list-of-nominees {width: calc(100% - 706px);}
     .list-of-winners {width: 230px;}
-    .undo-button {right: 333px;}
+    .undo-button {right: 332px;}
     .search-form, .nominee, .winner, .add-name {font-size: 1.25vw;}
   }
 
 .search-form, .list-of-nominees, .list-of-winners {
   padding: 20px;
-  font-family: 'Open Sans', sans-serif;
   height: calc(100vh - 162px);
   margin: 20px;
   background-color: nth($colors, 4);
@@ -74,7 +96,6 @@ body {
 }
 
 .person {
-  color: nth($colors, 5);
   background: nth($colors, 3);
   width: 100%;
   border: 1px solid darken( nth($colors, 3), 5%);
@@ -93,7 +114,6 @@ body {
 }
 
 .nominee {
-  color: nth($colors, 5);
   background: nth($colors, 2);
   border: 2px solid darken( nth($colors, 2), 5%);
   padding: 0 10px 0 10px;
@@ -105,7 +125,6 @@ body {
   background: nth($colors, 8);
   width: 100%;
   border: 2px solid darken( nth($colors, 8), 5%);
-  color: nth($colors, 5);
   margin: 0 0 10px 0;
   cursor: default;
 }
@@ -130,6 +149,7 @@ body {
   width: calc(100% - 20px);
   border-radius: 5px;
   outline: 0;
+  color: nth($colors, 3);
 }
 
 .hl {
@@ -139,21 +159,13 @@ body {
 
 .undo-button {
   background-color: nth($colors, 6);
-  border: 2px solid darken( nth($colors, 6), 10%);
-  &:hover {
-    background-color: darken(nth($colors, 6), 10%);
-    border-color: darken(nth($colors, 6), 20%)
-  }
+  @include button-effect(nth($colors, 6));
 }
 
 .win-button {
-  right: 21px;
+  right: 20px;
   background-color: nth($colors, 7);
-  border: 2px solid darken( nth($colors, 7), 10%);
-  &:hover {
-    background-color: darken(nth($colors, 7), 10%);
-    border-color: darken(nth($colors, 7), 20%)
-  }
+  @include button-effect(nth($colors, 7));
 }
 
 .fa-trophy, .fa-undo {
@@ -161,43 +173,27 @@ body {
 }
 
 .win-button, .undo-button {
-  color: nth($colors, 5);
   position: fixed;
-  bottom: 21px;
+  bottom: 20px;
   height: 60px;
   width: 60px;
   border-top-left-radius: 60px;
   border-bottom-right-radius: 5px;
   font-size: 2em;
   padding: 0 0 0 12px;
-  box-shadow: 1px 1px 2px nth($colors, 1);
-  cursor: pointer;
-  &:hover {
-    color: darken(nth($colors, 5), 20%);
-  }
-  &:active {
-    transform: translateY(2px);
-    box-shadow: 0;
-  }
-  &:focus {
-    outline: 0;
-  }
 }
 
 .counter {
   position: fixed;
   bottom: 26px;
   font-size: 2em;
-  color: nth($colors, 5);
 }
 
 .header {
   height: 60px;
   background-color: nth($colors, 2);
-  color: nth($colors, 5);
   font-size: 50px;
   padding: 10px 20px 10px 20px;
-  font-family: 'Open Sans', sans-serif;
   .small {
     font-size: 12px;
   }
@@ -213,18 +209,30 @@ body {
   height: 80px;
   width: 120px;
   background-color: nth($colors, 2);
-  color: nth($colors, 5);
-  border: none;
   border-radius: 5px;
   position: relative;
   left: calc(50vw - 60px);
   top: calc(50vh - 100px);
-  box-shadow: 2px 10px 10px darken( nth($colors, 3), 20% );
-  outline: none;
-  &:active {
-    transform: translateY(5px);
-    box-shadow: 2px 5px 5px darken( nth($colors, 3), 20% );
-  }
-  font-family: 'Open Sans', sans-serif;
   font-size: 2em;
+  @include button-effect(nth($colors, 2));
+}
+
+.logout-button, .close-button {
+  font-size: 2em;
+  width: 4em;
+  border-radius: 5px;
+  position: relative;
+  bottom: -10px;
+}
+
+.logout-button {
+  float: right;
+  background-color: nth($colors, 8);
+  @include button-effect(nth($colors, 8));
+}
+
+.close-button {
+  float: left;
+  background-color: nth($colors, 6);
+  @include button-effect(nth($colors, 6));
 }

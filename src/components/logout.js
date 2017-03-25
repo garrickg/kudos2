@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import Modal from 'react-modal';
 
+// Modal Styles
 const customStyle = {
   overlay : {
     position          : 'fixed',
@@ -13,17 +14,16 @@ const customStyle = {
   },
   content : {
     position                   : 'absolute',
-    top                        : '40px',
-    left                       : '40px',
-    right                      : '40px',
-    bottom                     : '40px',
+    top                        : '40vh',
+    left                       : '37.5vw',
+    right                      : '37.5vw',
+    bottom                     : '40vh',
     border                     : '1px solid #ccc',
-    background                 : '#fff',
+    borderRadius               : '5px',
+    background                 : '#787A7A',
     overflow                   : 'auto',
     WebkitOverflowScrolling    : 'touch',
-    borderRadius               : '4px',
     outline                    : 'none',
-    padding                    : '20px'
 
   }
 };
@@ -31,16 +31,16 @@ const customStyle = {
 class Logout extends Component {
 
     render() {
+        // Render logout modal prompt
         return (
             <Modal
                 isOpen={this.props.open}
                 style={customStyle}
                 contentLabel="Modal"
                 >
-                <h1>Modal Content</h1>
-                <p>Etc.</p>
-                <button onClick={this.props.logout}>Logout</button>
-                <button onClick={this.props.close}>Close</button>
+                <h1>Logout?</h1>
+                <button className="close-button" onClick={this.props.close}>Close</button>
+                <button className="logout-button" onClick={this.props.logout}>Logout</button>
             </Modal>
         );
     }

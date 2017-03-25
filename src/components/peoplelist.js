@@ -6,7 +6,9 @@ import Person from './person';
 class PeopleList extends Component {
 
     render() {
+        // Check if list of name is not empty from searching
         let search = this.props.filtered.length > 0 ? false : true;
+        // Render list of people already in DB, matching search string
         if (!search) {
             return (
                 <div className="list-of-people">
@@ -19,6 +21,7 @@ class PeopleList extends Component {
                 </div>
             );
         }
+        // Render add new name component, if no search results are present
         else {
             return (
                 <div className="list-of-people">

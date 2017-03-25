@@ -19,9 +19,10 @@ class Kudos extends Component {
   }
 
   componentWillMount() {
-
+    // Format is 'MMM DD, YYYY'
     const today = Moment().format('LL');
 
+    // Sync list of people in DB to App
     this.peopleRef = Base.syncState(`people`, {
       context: this,
       state: 'people',
@@ -33,12 +34,14 @@ class Kudos extends Component {
       }
     });
 
+    // Sync list of nominees from today in DB to App
     this.nomineesRef = Base.syncState(`nominees/${today}`, {
       context: this,
       state: 'nominees',
       asArray: true
     });
 
+    // Sync list of winners from today in DB to App
     this.winnersRef = Base.syncState(`winners/${today}`, {
       context: this,
       state: 'winners',
@@ -46,6 +49,7 @@ class Kudos extends Component {
     });
   }
 
+  // Highlight input box on load for quicker typing
   componentDidMount() {
     let input = document.querySelector('.search-box');
     input.focus();

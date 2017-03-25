@@ -8,7 +8,7 @@ import Login from './components/login';
 import Logout from './components/logout';
 import NotFound from './components/notfound';
 
-// PrivateRoute will render protected component with props if logged in, and redirect to login page otherwise
+// PrivateRoute will render protected component with props if logged in and authorized, and redirect to login page otherwise
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
     <Route
@@ -34,6 +34,7 @@ function PublicRoute ({component: Component, authed, ...rest}) {
 
 class App extends Component {
   
+  // Initialize state
   state = {
     uid: null,
     authed: false,
@@ -65,6 +66,7 @@ class App extends Component {
     this.removeListener();
   }
 
+  // Toggle open state for logout modal
   openModal = () => {
     if (this.state.authed) {
       this.setState({
@@ -73,6 +75,7 @@ class App extends Component {
     }
   }
 
+  // Sends logout command to DB, closes modal
   logout = () => {
     Base.unauth();
     this.setState({
@@ -80,6 +83,7 @@ class App extends Component {
     });
   }
 
+  // Closes modal without logging out
   closeModal = () => {
     this.setState({
       modalOpen: false
