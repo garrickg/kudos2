@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import '../App.css';
 import Person from './person';
 
@@ -12,12 +11,12 @@ class PeopleList extends Component {
         if (!search) {
             return (
                 <div className="list-of-people">
-                {
-                    Object
-                    .keys(this.props.filtered)
-                    .sort((a,b) => this.props.filtered[a].First > this.props.filtered[b].First ? 1 : -1)
-                    .map(key => <Person key={key} name={this.props.filtered[key]} nominate={this.props.nominate} search={search} highlight={this.props.search} />)
-                }
+                    {
+                        Object
+                        .keys(this.props.filtered)
+                        .sort((a,b) => this.props.filtered[a].First > this.props.filtered[b].First ? 1 : -1)
+                        .map(key => <Person key={key} name={this.props.filtered[key]} nominate={this.props.nominate} search={search} highlight={this.props.search} />)
+                    }
                 </div>
             );
         }

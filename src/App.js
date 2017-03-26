@@ -36,7 +36,6 @@ class App extends Component {
   
   // Initialize state
   state = {
-    uid: null,
     authed: false,
     loading: true,
     modalOpen: false
@@ -48,14 +47,12 @@ class App extends Component {
       if (user) {
         this.setState({
           authed: true,
-          uid: user.uid,
           loading: false
         })
       } else {
         this.setState({
           authed: false,
-          loading: false,
-          uid: null
+          loading: false
         })
       }
     })

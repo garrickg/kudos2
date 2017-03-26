@@ -1,3 +1,11 @@
+@keyframes pick-winner {
+  0% {
+    transform: scale(1, 1); }
+  50% {
+    transform: scale(1.5, 1.5); }
+  100% {
+    opacity: 0.01; } }
+
 * {
   font-family: 'Open Sans', sans-serif;
   color: #FFFFFF; }
@@ -67,6 +75,13 @@ body {
   justify-content: flex-start;
   align-content: flex-start; }
 
+.list-of-nominees span {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start; }
+
 .list-of-winners {
   float: right; }
 
@@ -75,14 +90,17 @@ body {
   width: 100%;
   border: 1px solid #6b6d6d;
   cursor: pointer; }
-  .person:hover {
-    color: #e6e6e6;
-    background: #5f6060; }
-  .person:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 2px #787A7A; }
-  .person a {
-    display: block; }
+
+.person:hover {
+  color: #e6e6e6;
+  background: #5f6060; }
+
+.person:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px #787A7A; }
+
+.person a {
+  display: block; }
 
 .nominee {
   background: #49176D;
@@ -130,13 +148,15 @@ body {
   border-bottom-color: #d44f0c;
   cursor: pointer;
   outline: none; }
-  .undo-button:active {
-    border-top-color: #d44f0c;
-    border-left-color: #d44f0c;
-    border-right-color: #f58851;
-    border-bottom-color: #f58851; }
-  .undo-button:hover {
-    background-color: #ec580e; }
+
+.undo-button:active {
+  border-top-color: #d44f0c;
+  border-left-color: #d44f0c;
+  border-right-color: #f58851;
+  border-bottom-color: #f58851; }
+
+.undo-button:hover {
+  background-color: #ec580e; }
 
 .win-button {
   right: 20px;
@@ -147,13 +167,15 @@ body {
   border-bottom-color: #008aa9;
   cursor: pointer;
   outline: none; }
-  .win-button:active {
-    border-top-color: #008aa9;
-    border-left-color: #008aa9;
-    border-right-color: #10d2ff;
-    border-bottom-color: #10d2ff; }
-  .win-button:hover {
-    background-color: #009ec3; }
+
+.win-button:active {
+  border-top-color: #008aa9;
+  border-left-color: #008aa9;
+  border-right-color: #10d2ff;
+  border-bottom-color: #10d2ff; }
+
+.win-button:hover {
+  background-color: #009ec3; }
 
 .fa-trophy, .fa-undo {
   vertical-align: sub; }
@@ -178,8 +200,9 @@ body {
   background-color: #49176D;
   font-size: 50px;
   padding: 10px 20px 10px 20px; }
-  .header .small {
-    font-size: 12px; }
+
+.header .small {
+  font-size: 12px; }
 
 .logo {
   height: 60px;
@@ -201,13 +224,15 @@ body {
   border-bottom-color: #2d0e43;
   cursor: pointer;
   outline: none; }
-  .login-button:active {
-    border-top-color: #2d0e43;
-    border-left-color: #2d0e43;
-    border-right-color: #652097;
-    border-bottom-color: #652097; }
-  .login-button:hover {
-    background-color: #3b1358; }
+
+.login-button:active {
+  border-top-color: #2d0e43;
+  border-left-color: #2d0e43;
+  border-right-color: #652097;
+  border-bottom-color: #652097; }
+
+.login-button:hover {
+  background-color: #3b1358; }
 
 .logout-button, .close-button {
   font-size: 2em;
@@ -225,13 +250,15 @@ body {
   border-bottom-color: #007160;
   cursor: pointer;
   outline: none; }
-  .logout-button:active {
-    border-top-color: #007160;
-    border-left-color: #007160;
-    border-right-color: #00d7b8;
-    border-bottom-color: #00d7b8; }
-  .logout-button:hover {
-    background-color: #008b76; }
+
+.logout-button:active {
+  border-top-color: #007160;
+  border-left-color: #007160;
+  border-right-color: #00d7b8;
+  border-bottom-color: #00d7b8; }
+
+.logout-button:hover {
+  background-color: #008b76; }
 
 .close-button {
   float: left;
@@ -242,10 +269,32 @@ body {
   border-bottom-color: #d44f0c;
   cursor: pointer;
   outline: none; }
-  .close-button:active {
-    border-top-color: #d44f0c;
-    border-left-color: #d44f0c;
-    border-right-color: #f58851;
-    border-bottom-color: #f58851; }
-  .close-button:hover {
-    background-color: #ec580e; }
+
+.close-button:active {
+  border-top-color: #d44f0c;
+  border-left-color: #d44f0c;
+  border-right-color: #f58851;
+  border-bottom-color: #f58851; }
+
+.close-button:hover {
+  background-color: #ec580e; }
+
+.win-animation-enter, .nominate-animation-enter {
+  opacity: 0.01; }
+
+.win-animation-enter.win-animation-enter-active, .nominate-animation-enter.nominate-animation-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in; }
+
+.nominate-animation-leave {
+  opacity: 1; }
+
+.nominate-animation-leave.nominate-animation-leave-active {
+  animation: pick-winner 2s ease-in; }
+
+.undo-animation-leave {
+  opacity: 1; }
+
+.undo-animation-leave.undo-animation-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in; }

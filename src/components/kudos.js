@@ -15,7 +15,8 @@ class Kudos extends Component {
     search: "", // User entered search string
     filtered: [], // List of people filtered based on search string
     nominees: [], // List of people nominated
-    winners: [] // List of winners
+    winners: [], // List of winners
+    undo: false // Handle if undo button was pressed, for different animations
   }
 
   componentWillMount() {
@@ -75,7 +76,8 @@ class Kudos extends Component {
     });
     this.setState({
       filtered,
-      search
+      search,
+      undo: false
     })
   }
 
@@ -85,7 +87,9 @@ class Kudos extends Component {
     const nomineeKey = e.target.dataset.key;
     const nominee = {
       First: this.state.people[nomineeKey].First,
-      Last: this.state.people[nomineeKey].Last
+      Last: this.state.people[nomineeKey].Last,
+      NomKey: nomineeKey,
+      index: nominees.length
     }
 
     // Add clicked name to list of nominees
@@ -94,7 +98,8 @@ class Kudos extends Component {
     this.setState({
       nominees,
       filtered: this.state.people,
-      search: ""
+      search: "",
+      undo: false
     });
 
     // Clear search input box
@@ -120,7 +125,8 @@ class Kudos extends Component {
       nominees = nominees.filter(nominee => !(nominee.First === winner.First && nominee.Last === winner.Last));
       this.setState({
         winners,
-        nominees
+        nominees,
+        undo: false
       });
     }
   }
@@ -134,7 +140,8 @@ class Kudos extends Component {
     }
 
     this.setState({
-      nominees
+      nominees,
+      undo: true
     });
   }
 
@@ -150,17 +157,24 @@ class Kudos extends Component {
       Last: last,
       key
     };
+    const nominee = {
+      First: first,
+      Last: last,
+      NomKey: key,
+      index: nominees.length
+    };
 
     // Add new person to list of people
     people.push(person);
     
     // Nominate new person
-    nominees.push(person);
+    nominees.push(nominee);
 
     this.setState({
       people,
       nominees,
-      filtered: people
+      filtered: people,
+      undo: false
     });
 
     // Clear search box
@@ -174,7 +188,7 @@ class Kudos extends Component {
           <input type="text" className="search-box" placeholder="Search..." onChange={this.filter} />
           <PeopleList people={this.state.people} filtered={this.state.filtered} nominate={this.nominate} add={this.add} search={this.state.search} />
         </form>
-        <NomineeList nominees={this.state.nominees} undo={this.undo} />
+        <NomineeList people={this.state.people} nominees={this.state.nominees} undo={this.undo} undoAnimation={this.state.undo} />
         <WinnerList pickWinner={this.pickWinner} winners={this.state.winners} />
       </div>
     );

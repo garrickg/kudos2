@@ -24,6 +24,18 @@ $media-sm: 720px;
   outline: none;
 }
 
+@keyframes pick-winner {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.5, 1.5);
+  }
+  100% {
+    opacity: 0.01;
+  }
+}
+
 *{
   font-family: 'Open Sans', sans-serif;
   color: nth($colors, 5);
@@ -89,6 +101,13 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
+  span { // Added to fix ReactCSSTransitionGroup Styling Issue
+    display: inline-flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
 }
 
 .list-of-winners {
@@ -235,4 +254,30 @@ body {
   float: left;
   background-color: nth($colors, 6);
   @include button-effect(nth($colors, 6));
+}
+
+.win-animation-enter, .nominate-animation-enter {
+  opacity: 0.01;
+}
+
+.win-animation-enter.win-animation-enter-active, .nominate-animation-enter.nominate-animation-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.nominate-animation-leave {
+  opacity: 1;
+}
+
+.nominate-animation-leave.nominate-animation-leave-active {
+  animation: pick-winner 2s ease-in;
+}
+
+.undo-animation-leave {
+  opacity: 1;
+}
+
+.undo-animation-leave.undo-animation-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
