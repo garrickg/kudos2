@@ -19,6 +19,7 @@ class NomineeList extends Component {
                                 .keys(this.props.nominees)
                                 .map(key => {
                                     const nominee = this.props.nominees[key];
+                                    // All components given unique key for proper animations
                                     return <Nominee key={`${nominee.NomKey}.${nominee.index}`} name={nominee} index={key}/>
                                 })
                             }

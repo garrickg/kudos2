@@ -24,14 +24,22 @@ $media-sm: 720px;
   outline: none;
 }
 
+@mixin color-and-border($color) {
+  background: $color;
+  border: 1px solid darken($color, 5%);
+}
+
 @keyframes pick-winner {
-  0% {
-    transform: scale(1, 1);
+  from {
+    transform: none;
+    opacity: 1;
   }
   50% {
-    transform: scale(1.5, 1.5);
+    transform: scale(1.5);
+    opacity: 1;
   }
-  100% {
+  to {
+    transform: scale(0);
     opacity: 0.01;
   }
 }
@@ -115,12 +123,12 @@ body {
 }
 
 .person {
-  background: nth($colors, 3);
   width: 100%;
-  border: 1px solid darken( nth($colors, 3), 5%);
+  cursor: pointer;
+  @include color-and-border(nth($colors, 3));
   &:hover {
     color: darken( nth($colors, 5), 10%);
-    background: darken( nth($colors, 3), 10%);
+    @include color-and-border(darken( nth($colors, 3), 10%)));
   }
   &:active {
     transform: translateY(2px);
@@ -129,29 +137,25 @@ body {
   a {
     display: block;
   }
-  cursor: pointer;
 }
 
 .nominee {
-  background: nth($colors, 2);
-  border: 2px solid darken( nth($colors, 2), 5%);
   padding: 0 10px 0 10px;
   margin: 0 10px 10px 0;
   cursor: default;
+  @include color-and-border(nth($colors, 2));
 }
 
 .winner {
-  background: nth($colors, 8);
   width: 100%;
-  border: 2px solid darken( nth($colors, 8), 5%);
   margin: 0 0 10px 0;
   cursor: default;
+  @include color-and-border(nth($colors, 8));
 }
 
 .add-name {
-  background: nth($colors, 6);
   width: 100%;
-  border: 2px solid darken( nth($colors, 6), 5%);
+  @include color-and-border(nth($colors, 6));
 }
 
 .person, .nominee, .winner, .add-name {
@@ -265,16 +269,12 @@ body {
   transition: opacity 300ms ease-in;
 }
 
-.nominate-animation-leave {
+.nominate-animation-leave, .undo-animation-leave {
   opacity: 1;
 }
 
 .nominate-animation-leave.nominate-animation-leave-active {
   animation: pick-winner 2s ease-in;
-}
-
-.undo-animation-leave {
-  opacity: 1;
 }
 
 .undo-animation-leave.undo-animation-leave-active {
