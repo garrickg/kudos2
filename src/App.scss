@@ -128,7 +128,7 @@ body {
   @include color-and-border(nth($colors, 3));
   &:hover {
     color: darken( nth($colors, 5), 10%);
-    @include color-and-border(darken( nth($colors, 3), 10%)));
+    @include color-and-border(darken( nth($colors, 3), 10%));
   }
   &:active {
     transform: translateY(2px);

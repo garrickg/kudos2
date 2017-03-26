@@ -89,14 +89,15 @@ body {
   float: right; }
 
 .person {
-  background: #787A7A;
   width: 100%;
-  border: 1px solid #6b6d6d;
-  cursor: pointer; }
+  cursor: pointer;
+  background: #787A7A;
+  border: 1px solid #6b6d6d; }
 
 .person:hover {
   color: #e6e6e6;
-  background: #5f6060; }
+  background: #5f6060;
+  border: 1px solid #525353; }
 
 .person:active {
   transform: translateY(2px);
@@ -106,23 +107,23 @@ body {
   display: block; }
 
 .nominee {
-  background: #49176D;
-  border: 2px solid #3b1358;
   padding: 0 10px 0 10px;
   margin: 0 10px 10px 0;
-  cursor: default; }
+  cursor: default;
+  background: #49176D;
+  border: 1px solid #3b1358; }
 
 .winner {
-  background: #00A48C;
   width: 100%;
-  border: 2px solid #008b76;
   margin: 0 0 10px 0;
-  cursor: default; }
+  cursor: default;
+  background: #00A48C;
+  border: 1px solid #008b76; }
 
 .add-name {
-  background: #F26721;
   width: 100%;
-  border: 2px solid #ec580e; }
+  background: #F26721;
+  border: 1px solid #ec580e; }
 
 .person, .nominee, .winner, .add-name {
   height: 40px;
@@ -289,14 +290,11 @@ body {
   opacity: 1;
   transition: opacity 300ms ease-in; }
 
-.nominate-animation-leave {
+.nominate-animation-leave, .undo-animation-leave {
   opacity: 1; }
 
 .nominate-animation-leave.nominate-animation-leave-active {
   animation: pick-winner 2s ease-in; }
-
-.undo-animation-leave {
-  opacity: 1; }
 
 .undo-animation-leave.undo-animation-leave-active {
   opacity: 0.01;
