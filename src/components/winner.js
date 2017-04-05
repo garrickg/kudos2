@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import '../App.css';
+import React, { Component } from 'react'
+import '../App.css'
 
 class Winner extends Component {
-
-  render() {
+  render () {
     return (
-        <p className="winner" data-key={this.props.index}>
-            {`${this.props.name.First} ${this.props.name.Last}`}
-        </p>
-    );
+      <p className='winner' data-key={this.props.index}>
+        {`${this.props.name.First} ${this.props.name.Last}`}
+      </p>
+    )
   }
 }
 
-export default Winner;
+export default Winner

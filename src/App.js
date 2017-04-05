@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-import './App.css';
-import Base from './base';
-import Logo from '../public/logo_white.png';
+import './App.css'
+import Base from './base'
+import Logo from '../public/logo_white.png'
 import Kudos from './components/kudos'
-import Login from './components/login';
-import Logout from './components/logout';
-import NotFound from './components/notfound';
+import Login from './components/login'
+import Logout from './components/logout'
+import NotFound from './components/notfound'
 
 // PrivateRoute will render protected component with props if logged in and authorized, and redirect to login page otherwise
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -33,7 +33,6 @@ function PublicRoute ({component: Component, authed, ...rest}) {
 }
 
 class App extends Component {
-  
   // Initialize state
   state = {
     authed: false,
@@ -60,7 +59,7 @@ class App extends Component {
 
   // Unbinds auth listener
   componentWillUnmount () {
-    this.removeListener();
+    this.removeListener()
   }
 
   // Toggle open state for logout modal
@@ -68,33 +67,33 @@ class App extends Component {
     if (this.state.authed) {
       this.setState({
         modalOpen: true
-      });
+      })
     }
   }
 
   // Sends logout command to DB, closes modal
   logout = () => {
-    Base.unauth();
+    Base.unauth()
     this.setState({
       modalOpen: false
-    });
+    })
   }
 
   // Closes modal without logging out
   closeModal = () => {
     this.setState({
       modalOpen: false
-    });
+    })
   }
 
-  render() {
+  render () {
     return this.state.loading === true ? <h1>Loading</h1> : (
       <BrowserRouter>
         <div>
-          <div className="header">
+          <div className='header'>
             <span>Kudos</span>
-            <span className="small"> v2.0</span>
-            <img onClick={this.openModal} className="logo" src={Logo} alt="StarFish Logo"/>
+            <span className='small'> v2.0</span>
+            <img onClick={this.openModal} className='logo' src={Logo} alt='StarFish Logo' />
           </div>
           <Logout open={this.state.modalOpen} logout={this.logout} close={this.closeModal} />
           <Switch>
@@ -104,8 +103,8 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
-    );
+    )
   }
 }
 
-export default App;
+export default App
