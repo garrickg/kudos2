@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Chance from 'chance';
 import Moment from 'moment';
+import Fuzzy from 'fuzzysearch';
 import Base from '../base';
 import '../App.css';
 import PeopleList from './peoplelist';
@@ -69,11 +70,15 @@ class Kudos extends Component {
     const search = e.target.value;
     // Copy current list of people from state
     const people = [...this.state.people];
-    // Filter list of people base on search string regex
+    // Filter list of people based on search string regex
+    // const filtered = people.filter(person => {
+    //   const regex = new RegExp(search, 'gi');
+    //   return person.First.match(regex) || person.Last.match(regex) || (`${person.First} ${person.Last}`).match(regex)
+    // });
+    // Filter list of people based on fuzzy search
     const filtered = people.filter(person => {
-      const regex = new RegExp(search, 'gi');
-      return person.First.match(regex) || person.Last.match(regex) || (`${person.First} ${person.Last}`).match(regex)
-    });
+      return Fuzzy(search.toLowerCase(), `${person.First} ${person.Last}`.toLowerCase());
+    })
     this.setState({
       filtered,
       search,
@@ -177,14 +182,20 @@ class Kudos extends Component {
       undo: false
     });
 
-    // Clear search box
-    document.querySelector('.search-box').value = "";
+    // Clear search input box
+    let input = document.querySelector('.search-box');
+    input.value = "";
+    input.focus();
+  }
+
+  handleDefault = (e) => {
+    e.preventDefault();
   }
 
   render() {
     return (
       <div>
-        <form className="search-form">
+        <form className="search-form" onSubmit={this.handleDefault}>
           <input type="text" className="search-box" placeholder="Search..." onChange={this.filter} />
           <PeopleList people={this.state.people} filtered={this.state.filtered} nominate={this.nominate} add={this.add} search={this.state.search} />
         </form>
