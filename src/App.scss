@@ -116,6 +116,12 @@ body {
     justify-content: flex-start;
     align-content: flex-start;
   }
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .list-of-winners {
@@ -210,6 +216,8 @@ body {
   position: fixed;
   bottom: 26px;
   font-size: 2em;
+  background-color: transparentize(nth($colors, 3), 0.10);
+  border-radius: 5px;
 }
 
 .header {
