@@ -14,7 +14,7 @@ const customStyle = {
   },
   content: {
     position: 'absolute',
-    top: '40vh',
+    top: '30vh',
     left: '37.5vw',
     right: '37.5vw',
     bottom: '40vh',
@@ -38,8 +38,8 @@ class Logout extends Component {
         contentLabel='Modal'
                 >
         <h1>Logout?</h1>
-        <button className='close-button' onClick={this.props.close}>Close</button>
-        <button className='logout-button' onClick={this.props.logout}>Logout</button>
+        <button className='close-button' onClick={this.props.close}>No</button>
+        <button className='logout-button' onClick={this.props.logout}>Yes</button>
       </Modal>
     )
   }
