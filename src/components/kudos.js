@@ -89,7 +89,7 @@ class Kudos extends Component {
     // Copy current list of nominees
     const nominees = [...this.state.nominees]
     const nomineeKey = e.target.dataset.key
-    const nomineeIndex = this.state.people.find(person => person.key == nomineeKey)
+    const nomineeIndex = this.state.people.findIndex(person => person.key == nomineeKey)
     const nominee = {
       First: this.state.people[nomineeIndex].First,
       Last: this.state.people[nomineeIndex].Last,
