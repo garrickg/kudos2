@@ -19,7 +19,7 @@ class NomineeList extends Component {
                                 .map(key => {
                                   const nominee = this.props.nominees[key]
                                     // All components given unique key for proper animations
-                                  return <Nominee key={`${nominee.NomKey}.${nominee.index}`} name={nominee} index={key} />
+                                  return <Nominee key={`${nominee.NomKey}.${nominee.index}`} name={nominee} index={key} removeNominee={this.props.removeNominee} />
                                 })
                             }
         </ReactCSSTransitionGroup>

@@ -150,6 +150,9 @@ body {
   margin: 0 10px 10px 0;
   cursor: default;
   @include color-and-border(nth($colors, 2));
+  &:hover {
+    @include color-and-border(#c82333);
+  }
 }
 
 .winner {

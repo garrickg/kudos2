@@ -89,7 +89,7 @@ class Kudos extends Component {
     // Copy current list of nominees
     const nominees = [...this.state.nominees]
     const nomineeKey = e.target.dataset.key
-    const nomineeIndex = this.state.people.findIndex(person => person.key == nomineeKey)
+    const nomineeIndex = this.state.people.findIndex(person => person.key === nomineeKey)
     const nominee = {
       First: this.state.people[nomineeIndex].First,
       Last: this.state.people[nomineeIndex].Last,
@@ -188,6 +188,19 @@ class Kudos extends Component {
     input.focus()
   }
 
+  removeNominee = (e) => {
+    const key = e.target.dataset.key;
+    const nominees = [...this.state.nominees];
+    const nomIdx = nominees.findIndex((nominee) => {
+      return nominee['key'] === key;
+    });
+    nominees.splice(nomIdx, 1);
+    this.setState({
+      nominees,
+      undo: true
+    });
+  }
+
   handleDefault = (e) => {
     e.preventDefault()
   }
@@ -199,7 +212,7 @@ class Kudos extends Component {
           <input type='text' className='search-box' placeholder='Search...' onChange={this.filter} />
           <PeopleList people={this.state.people} filtered={this.state.filtered} nominate={this.nominate} add={this.add} search={this.state.search} />
         </form>
-        <NomineeList people={this.state.people} nominees={this.state.nominees} undo={this.undo} undoAnimation={this.state.undo} />
+        <NomineeList people={this.state.people} nominees={this.state.nominees} undo={this.undo} undoAnimation={this.state.undo} removeNominee={this.removeNominee} />
         <WinnerList pickWinner={this.pickWinner} winners={this.state.winners} />
       </div>
     )
