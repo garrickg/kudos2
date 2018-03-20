@@ -144,6 +144,10 @@ class Kudos extends Component {
       nominees.pop()
     }
 
+    // focus on search input box
+    let input = document.querySelector('.search-box')
+    input.focus()
+
     this.setState({
       nominees,
       undo: true
@@ -189,16 +193,22 @@ class Kudos extends Component {
   }
 
   removeNominee = (e) => {
-    const key = e.target.dataset.key;
-    const nominees = [...this.state.nominees];
+    const key = e.target.dataset.key
+    const nominees = [...this.state.nominees]
     const nomIdx = nominees.findIndex((nominee) => {
-      return nominee['key'] === key;
-    });
-    nominees.splice(nomIdx, 1);
+      return nominee['key'] === key
+    })
+
+    nominees.splice(nomIdx, 1)
+
+    // focus on search input box
+    let input = document.querySelector('.search-box')
+    input.focus()
+
     this.setState({
       nominees,
       undo: true
-    });
+    })
   }
 
   handleDefault = (e) => {
