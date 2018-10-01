@@ -57,33 +57,36 @@ body {
 
 @media screen
   and (max-width: $media-sm) {
-    .search-form {width: calc(30% - 82px);}
+    .search-form, .list-of-timers {width: calc(30% - 82px);}
     .list-of-nominees {width: calc(40% - 82px);}
     .list-of-winners {width: calc(30% - 82px);}
+    .clock {width: calc(70% - 82px);}
     .undo-button {right: calc(30% + 20px);}
-    .search-form, .nominee, .winner, .add-name {font-size: 2vw;}
+    .search-form, .nominee, .winner, .add-name, .list-of-timers {font-size: 2vw;}
   }
 
 @media screen
   and (min-width: $media-sm)
   and (max-width: $media-med) {
-    .search-form {width: calc(25% - 82px);}
+    .search-form, .list-of-timers {width: calc(25% - 82px);}
     .list-of-nominees {width: calc(50% - 82px);}
     .list-of-winners {width: calc(25% - 82px);}
+    .clock {width: calc(75% - 82px);}
     .undo-button {right: calc(25% + 20px);}
-    .search-form, .nominee, .winner, .add-name {font-size: 1.5vw;}
+    .search-form, .nominee, .winner, .add-name, .list-of-timers {font-size: 1.5vw;}
   }
 
 @media screen
   and (min-width: $media-med) {
-    .search-form {width: 230px;}
+    .search-form, .list-of-timers {width: 230px;}
     .list-of-nominees {width: calc(100% - 706px);}
     .list-of-winners {width: 230px;}
+    .clock {width: calc(100% - 476px);}
     .undo-button {right: 332px;}
-    .search-form, .nominee, .winner, .add-name {font-size: 1.0vw;}
+    .search-form, .nominee, .winner, .add-name, .list-of-timers {font-size: 1.0vw;}
   }
 
-.search-form, .list-of-nominees, .list-of-winners {
+.search-form, .list-of-nominees, .list-of-winners, .list-of-timers, .clock {
   padding: 20px;
   height: calc(100vh - 162px);
   margin: 20px;
@@ -93,7 +96,7 @@ body {
   box-shadow: 2px 2px 10px darken( nth($colors, 3), 20%);
 }
 
-.search-form {
+.search-form, .list-of-timers {
   float: left;
   overflow-y: auto;
 }
@@ -103,7 +106,7 @@ body {
   background: transparent;
 }
 
-.list-of-nominees {
+.list-of-nominees, .clock {
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -128,7 +131,7 @@ body {
   float: right;
 }
 
-.person {
+.person, .timer {
   width: 100%;
   cursor: pointer;
   @include color-and-border(nth($colors, 3));
@@ -167,7 +170,7 @@ body {
   @include color-and-border(nth($colors, 6));
 }
 
-.person, .nominee, .winner, .add-name {
+.person, .nominee, .winner, .add-name, .timer {
   height: 40px;
   text-align: center;
   line-height: 40px;

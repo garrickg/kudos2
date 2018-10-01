@@ -7,6 +7,7 @@ import Kudos from './components/kudos'
 import Login from './components/login'
 import Logout from './components/logout'
 import NotFound from './components/notfound'
+import Timers from './components/timers'
 
 // PrivateRoute will render protected component with props if logged in and authorized, and redirect to login page otherwise
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -99,6 +100,7 @@ class App extends Component {
           <Switch>
             <PublicRoute authed={this.state.authed} path='/login' component={Login} />
             <PrivateRoute authed={this.state.authed} path='/kudos' component={Kudos} />
+            <PrivateRoute authed={this.state.authed} path='/timer' component={Timers} />
             <PublicRoute component={NotFound} />
           </Switch>
         </div>
