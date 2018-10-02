@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:unicorn/recommended",
+    "plugin:sonarjs/recommended"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "unicorn",
+    "sonarjs"
+  ],
+  "rules": {
+    "jsx-a11y/anchor-is-valid": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/no-noninteractive-tabindex": 0
+  }
+}
