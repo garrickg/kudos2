@@ -9,26 +9,10 @@ class Timers extends Component {
 // Setting intial state
 state = {
   timers: [],
-  loadedTimer: null,
-// timers: [{
-//   description: 'Second',
-//   startTime: Moment().format('MMMM Do YYYY, h:mm:ss a'),
-//   stopTime: Moment().format('MMMM Do YYYY, h:mm:ss a'),
-//   position: 1,
-//   duration: 500,
-//   elapsed: null
-// }, {
-//   description: 'First',
-//   startTime: Moment().format('MMMM Do YYYY, h:mm:ss a'),
-//   stopTime: Moment().format('MMMM Do YYYY, h:mm:ss a'),
-//   position: 0,
-//   duration: 500,
-//   elapsed: null
-// }]
-// Complete list of timers
+  loadedTimerIdx: null,
 // Timer object:
 // {
-//   startTime: dateTime, time when timer began
+//   startTime: dateTime, time when timer began, format('MMMM Do YYYY, h:mm:ss a')
 //   stopTime: dateTime, time when switch to next timer
 //   position: integer, order in which timer appears
 //   description: string, short description of timer
@@ -49,10 +33,6 @@ componentWillMount() {
   });
 }
 
-// Highlight input box on load for quicker typing
-componentDidMount() {
-}
-
 // Removed DB bindings on close
 componentWillUnmount() {
   Base.removeBinding(this.timersRef);
@@ -63,19 +43,45 @@ handleDefault = (e) => {
 }
 
 loadTimer = (e) => {
-  const { timers } = this.state;
   const { key } = e.target.dataset;
   this.setState({
-    loadedTimer: timers[key],
+    loadedTimerIdx: key,
   });
 }
 
+startTimer = (e) => {
+  console.log('clicked');
+  const { timers, loadedTimerIdx } = this.state;
+  setInterval(() => { timers[loadedTimerIdx].elapsed += 1; }, 1000);
+  this.setState({
+    timers,
+  });
+}
+
+stopTimer = (e) => {
+  console.log('clicked');
+}
+
+resetTimer = (e) => {
+  console.log('clicked');
+}
+
+nextTimer = (e) => {
+  console.log('clicked');
+}
+
 render() {
-  const { timers, loadedTimer } = this.state;
+  const { timers, loadedTimerIdx } = this.state;
   return (
     <div>
-      <TimerList timers={timers} onClick={this.loadTimer} />
-      <Clock loadedTimer={loadedTimer} />
+      <TimerList timers={timers} loadTimer={this.loadTimer} />
+      <Clock
+        loadedTimer={timers[loadedTimerIdx]}
+        startTimer={this.startTimer}
+        stopTimer={this.stopTimer}
+        resetTimer={this.resetTimer}
+        nextTimer={this.nextTimer}
+      />
     </div>
   );
 }

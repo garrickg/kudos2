@@ -11,7 +11,7 @@ import Kudos from './components/kudos';
 import Login from './components/login';
 import Logout from './components/logout';
 import NotFound from './components/notfound';
-import Timer from './components/timer';
+import Timers from './components/timers';
 
 // PrivateRoute will render protected component with props
 // if logged in and authorized, and redirect to login page otherwise
@@ -114,7 +114,7 @@ render() {
         <Switch>
           <PublicRoute authed={authed} path="/login" component={Login} />
           <PrivateRoute authed={authed} path="/kudos" component={Kudos} />
-          <PrivateRoute authed={authed} path="/timer" component={Timer} />
+          <PrivateRoute authed={authed} path="/timer" component={Timers} />
           <PublicRoute component={NotFound} />
         </Switch>
       </div>

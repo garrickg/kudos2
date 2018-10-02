@@ -5,11 +5,11 @@ const Timer = (props) => {
   const {
     timer: {
       description, duration,
-    }, onClick, key,
+    }, loadTimer, index,
   } = { ...props };
   return (
     <p className="timer">
-      <a data-key={key} tabIndex={key} onKeyPress={e => e.keyCode === 13 && onClick} onClick={onClick} role="button">{`${description}: ${duration}`}</a>
+      <a data-key={index} tabIndex={index} onKeyPress={e => e.keyCode === 13 && loadTimer} onClick={loadTimer} role="button">{`${description}: ${duration}`}</a>
     </p>
   );
 };
