@@ -49,23 +49,6 @@ loadTimer = (e) => {
   });
 }
 
-startTimer = (e) => {
-  console.log('clicked');
-  const { timers, loadedTimerIdx } = this.state;
-  setInterval(() => { timers[loadedTimerIdx].elapsed += 1; }, 1000);
-  this.setState({
-    timers,
-  });
-}
-
-stopTimer = (e) => {
-  console.log('clicked');
-}
-
-resetTimer = (e) => {
-  console.log('clicked');
-}
-
 nextTimer = (e) => {
   console.log('clicked');
 }
@@ -75,13 +58,7 @@ render() {
   return (
     <div>
       <TimerList timers={timers} loadTimer={this.loadTimer} />
-      <Clock
-        loadedTimer={timers[loadedTimerIdx]}
-        startTimer={this.startTimer}
-        stopTimer={this.stopTimer}
-        resetTimer={this.resetTimer}
-        nextTimer={this.nextTimer}
-      />
+      <Clock loadedTimer={timers[loadedTimerIdx]} nextTimer={this.nextTimer}/>
     </div>
   );
 }

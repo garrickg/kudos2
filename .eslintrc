@@ -10,12 +10,16 @@
   },
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "parser": "babel-eslint",
   "plugins": [
     "unicorn",
-    "sonarjs"
+    "sonarjs",
+    "react"
   ],
   "rules": {
     "jsx-a11y/anchor-is-valid": 0,
