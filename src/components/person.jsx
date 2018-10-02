@@ -4,7 +4,7 @@ import React from 'react';
 
 const Person = (props) => {
   const {
-    search, name: { First, Last, key }, highlight, nominate, name, index, add, removeNominee,
+    search, name: { First, Last, key }, highlight, nominate, name, index, add,
   } = { ...props };
   // Check if component has received search bool
   if (!search) {
@@ -17,13 +17,13 @@ const Person = (props) => {
     // Render name component
     return (
       <p className="person">
-        <a onClick={nominate} data-key={key} dangerouslySetInnerHTML={{ __html: fullName }} onKeyPress={e => e.keyCode === 13 && removeNominee} role="button" tabIndex={0} />
+        <a onClick={nominate} data-key={key} dangerouslySetInnerHTML={{ __html: fullName }} onKeyPress={e => e.keyCode === 13 && nominate} role="button" tabIndex={key} />
       </p>
     );
   } // If no search results in list, add new component for new name
   return (
     <p className="add-name">
-      <a onClick={add} data-key={index} data-search={name} onKeyPress={e => e.keyCode === 13 && removeNominee} role="button" tabIndex={0}>{`Add ${name}`}</a>
+      <a onClick={add} data-key={index} data-search={name} onKeyPress={e => e.keyCode === 13 && nominate} role="button" tabIndex={0}>{`Add ${name}`}</a>
     </p>
   );
 };

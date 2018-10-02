@@ -19,42 +19,48 @@ body {
   user-select: none; }
 
 @media screen and (max-width: 720px) {
-  .search-form {
+  .search-form, .list-of-timers {
     width: calc(30% - 82px); }
   .list-of-nominees {
     width: calc(40% - 82px); }
   .list-of-winners {
     width: calc(30% - 82px); }
+  .clock {
+    width: calc(70% - 82px); }
   .undo-button {
     right: calc(30% + 20px); }
-  .search-form, .nominee, .winner, .add-name {
+  .search-form, .nominee, .winner, .add-name, .list-of-timers {
     font-size: 2vw; } }
 
 @media screen and (min-width: 720px) and (max-width: 1024px) {
-  .search-form {
+  .search-form, .list-of-timers {
     width: calc(25% - 82px); }
   .list-of-nominees {
     width: calc(50% - 82px); }
   .list-of-winners {
     width: calc(25% - 82px); }
+  .clock {
+    width: calc(75% - 82px); }
   .undo-button {
     right: calc(25% + 20px); }
-  .search-form, .nominee, .winner, .add-name {
+  .search-form, .nominee, .winner, .add-name, .list-of-timers {
     font-size: 1.5vw; } }
 
 @media screen and (min-width: 1024px) {
-  .search-form {
+  .search-form, .list-of-timers {
     width: 230px; }
   .list-of-nominees {
     width: calc(100% - 706px); }
   .list-of-winners {
     width: 230px; }
+  .clock {
+    width: calc(100% - 476px); }
   .undo-button {
     right: 332px; }
-  .search-form, .nominee, .winner, .add-name {
+  .search-form, .nominee, .winner, .add-name, .list-of-timers {
     font-size: 1.0vw; } }
 
-.search-form, .list-of-nominees, .list-of-winners {
+.search-form, .list-of-nominees, .list-of-winners, .list-of-timers, .clock {
   padding: 20px;
   height: calc(100vh - 162px);
   margin: 20px;
@@ -63,7 +69,7 @@ body {
   border-radius: 5px;
   box-shadow: 2px 2px 10px #454747; }
 
-.search-form {
+.search-form, .list-of-timers {
   float: left;
   overflow-y: auto; }
 
@@ -71,19 +77,20 @@ body {
   width: 0px;
   background: transparent; }
 
-.list-of-nominees {
+.list-of-nominees, .clock {
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
   overflow-y: auto; }
-  .list-of-nominees span {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start; }
+
+.list-of-nominees span, .clock span {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start; }
 
 ::-webkit-scrollbar {
   width: 0px;
@@ -92,20 +99,23 @@ body {
 .list-of-winners {
   float: right; }
 
-.person {
+.person, .timer {
   width: 100%;
   cursor: pointer;
   background: #787A7A;
   border: 1px solid #6b6d6d; }
-  .person:hover {
-    color: #e6e6e6;
-    background: #5f6060;
-    border: 1px solid #525353; }
-  .person:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 2px #787A7A; }
-  .person a {
-    display: block; }
+
+.person:hover, .timer:hover {
+  color: #e6e6e6;
+  background: #5f6060;
+  border: 1px solid #525353; }
+
+.person:active, .timer:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px #787A7A; }
+
+.person a, .timer a {
+  display: block; }
 
 .nominee {
   padding: 0 10px 0 10px;
@@ -113,9 +123,10 @@ body {
   cursor: default;
   background: #49176D;
   border: 1px solid #3b1358; }
-  .nominee:hover {
-    background: #c82333;
-    border: 1px solid #b21f2d; }
+
+.nominee:hover {
+  background: #c82333;
+  border: 1px solid #b21f2d; }
 
 .winner {
   width: 100%;
@@ -129,7 +140,7 @@ body {
   background: #F26721;
   border: 1px solid #ec580e; }
 
-.person, .nominee, .winner, .add-name {
+.person, .nominee, .winner, .add-name, .timer {
   height: 40px;
   text-align: center;
   line-height: 40px;
@@ -156,13 +167,15 @@ body {
   border-bottom-color: #d44f0c;
   cursor: pointer;
   outline: none; }
-  .undo-button:active {
-    border-top-color: #d44f0c;
-    border-left-color: #d44f0c;
-    border-right-color: #f58851;
-    border-bottom-color: #f58851; }
-  .undo-button:hover {
-    background-color: #ec580e; }
+
+.undo-button:active {
+  border-top-color: #d44f0c;
+  border-left-color: #d44f0c;
+  border-right-color: #f58851;
+  border-bottom-color: #f58851; }
+
+.undo-button:hover {
+  background-color: #ec580e; }
 
 .win-button {
   right: 20px;
@@ -173,13 +186,15 @@ body {
   border-bottom-color: #008aa9;
   cursor: pointer;
   outline: none; }
-  .win-button:active {
-    border-top-color: #008aa9;
-    border-left-color: #008aa9;
-    border-right-color: #10d2ff;
-    border-bottom-color: #10d2ff; }
-  .win-button:hover {
-    background-color: #009ec3; }
+
+.win-button:active {
+  border-top-color: #008aa9;
+  border-left-color: #008aa9;
+  border-right-color: #10d2ff;
+  border-bottom-color: #10d2ff; }
+
+.win-button:hover {
+  background-color: #009ec3; }
 
 .fa-trophy, .fa-undo {
   vertical-align: sub; }
@@ -206,8 +221,9 @@ body {
   background-color: #49176D;
   font-size: 50px;
   padding: 10px 20px 10px 20px; }
-  .header .small {
-    font-size: 12px; }
+
+.header .small {
+  font-size: 12px; }
 
 .logo {
   height: 60px;
@@ -229,13 +245,15 @@ body {
   border-bottom-color: #2d0e43;
   cursor: pointer;
   outline: none; }
-  .login-button:active {
-    border-top-color: #2d0e43;
-    border-left-color: #2d0e43;
-    border-right-color: #652097;
-    border-bottom-color: #652097; }
-  .login-button:hover {
-    background-color: #3b1358; }
+
+.login-button:active {
+  border-top-color: #2d0e43;
+  border-left-color: #2d0e43;
+  border-right-color: #652097;
+  border-bottom-color: #652097; }
+
+.login-button:hover {
+  background-color: #3b1358; }
 
 .logout-button, .close-button {
   font-size: 2em;
@@ -253,13 +271,15 @@ body {
   border-bottom-color: #007160;
   cursor: pointer;
   outline: none; }
-  .logout-button:active {
-    border-top-color: #007160;
-    border-left-color: #007160;
-    border-right-color: #00d7b8;
-    border-bottom-color: #00d7b8; }
-  .logout-button:hover {
-    background-color: #008b76; }
+
+.logout-button:active {
+  border-top-color: #007160;
+  border-left-color: #007160;
+  border-right-color: #00d7b8;
+  border-bottom-color: #00d7b8; }
+
+.logout-button:hover {
+  background-color: #008b76; }
 
 .close-button {
   float: left;
@@ -270,13 +290,15 @@ body {
   border-bottom-color: #d44f0c;
   cursor: pointer;
   outline: none; }
-  .close-button:active {
-    border-top-color: #d44f0c;
-    border-left-color: #d44f0c;
-    border-right-color: #f58851;
-    border-bottom-color: #f58851; }
-  .close-button:hover {
-    background-color: #ec580e; }
+
+.close-button:active {
+  border-top-color: #d44f0c;
+  border-left-color: #d44f0c;
+  border-right-color: #f58851;
+  border-bottom-color: #f58851; }
+
+.close-button:hover {
+  background-color: #ec580e; }
 
 .win-animation-enter, .nominate-animation-enter {
   opacity: 0.01; }

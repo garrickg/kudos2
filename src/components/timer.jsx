@@ -1,13 +1,17 @@
-import React from 'react'
-import '../App.css'
+import React from 'react';
+import '../app.css';
 
 const Timer = (props) => {
-  const { timer: { key, description, startTime, stopTime, duration, elapsed, loadTimer }, onClick } = {...props};
+  const {
+    timer: {
+      description, duration,
+    }, onClick, key,
+  } = { ...props };
   return (
-    <p className='timer'>
-      <a data-key={key} onClick={onClick}>{`${description}: ${duration}`}</a>
+    <p className="timer">
+      <a data-key={key} tabIndex={key} onKeyPress={e => e.keyCode === 13 && onClick} onClick={onClick} role="button">{`${description}: ${duration}`}</a>
     </p>
-  )
-}
+  );
+};
 
-export default Timer
+export default Timer;

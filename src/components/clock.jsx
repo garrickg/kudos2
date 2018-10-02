@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-import '../App.css'
+import '../app.css';
 
 
 const Clock = (props) => {
-  const {loadedTimer} = {...props}
+  const { loadedTimer } = { ...props };
   return (
     <div className="clock">
       <p>{loadedTimer && loadedTimer.duration}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Clock
+export default Clock;
