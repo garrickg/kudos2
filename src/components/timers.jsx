@@ -9,11 +9,11 @@ class Timers extends Component {
 // Setting intial state
 state = {
   timers: [],
+  sortedTimers: [],
   loadedTimerIdx: null,
 // Timer object:
 // {
-//   startTime: dateTime, time when timer began, format('MMMM Do YYYY, h:mm:ss a')
-//   stopTime: dateTime, time when switch to next timer
+//   stopTime: dateTime, time when switch to next timer, format('MMMM Do YYYY, h:mm:ss a')
 //   position: integer, order in which timer appears
 //   description: string, short description of timer
 //   duration: seconds, desired length of timer
@@ -30,6 +30,13 @@ componentWillMount() {
     context: this,
     state: 'timers',
     asArray: true,
+    then() {
+      const { timers } = this.state;
+      const sortedTimers = timers.sort((a, b) => (a.position > b.position ? 1 : -1));
+      this.setState({
+        sortedTimers,
+      });
+    },
   });
 }
 
@@ -49,16 +56,34 @@ loadTimer = (e) => {
   });
 }
 
-nextTimer = (e) => {
-  console.log('clicked');
+nextTimer = () => {
+  const newState = { ...this.state };
+  if (newState.loadedTimerIdx < newState.timers.length - 1) {
+    newState.loadedTimerIdx = +newState.loadedTimerIdx + 1;
+  }
+  this.setState(newState);
+}
+
+updateTimer = (loadedTimer, time) => {
+  const { key, duration } = loadedTimer;
+  const elapsedTime = duration - time;
+  const newState = { ...this.state };
+  const timerIdx = newState.timers.findIndex(i => i.key === key);
+  newState.timers[timerIdx].elapsed = elapsedTime;
+  newState.timers[timerIdx].stopTime = Moment().format('MMMM Do YYYY, h:mm:ss a');
+  this.setState(newState);
 }
 
 render() {
-  const { timers, loadedTimerIdx } = this.state;
+  const { sortedTimers, loadedTimerIdx } = this.state;
   return (
     <div>
-      <TimerList timers={timers} loadTimer={this.loadTimer} />
-      <Clock loadedTimer={timers[loadedTimerIdx]} nextTimer={this.nextTimer}/>
+      <TimerList timers={sortedTimers} loadTimer={this.loadTimer} />
+      <Clock
+        loadedTimer={sortedTimers[loadedTimerIdx]}
+        nextTimer={this.nextTimer}
+        updateTimer={this.updateTimer}
+      />
     </div>
   );
 }

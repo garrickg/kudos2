@@ -106,7 +106,7 @@ body {
   background: transparent;
 }
 
-.list-of-nominees, .clock {
+.list-of-nominees {
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -294,4 +294,36 @@ body {
 .undo-animation-leave.undo-animation-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+.clockface {
+  width: 60vh;
+  height: 60vh;
+  line-height: 60vh;
+  border-width: 5px;
+  border-style: solid;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 18vh;
+  margin: 0 calc(50% - 30vh) 0 calc(50% - 30vh);
+}
+
+.clock {
+  display: inline-block;
+  h1 {
+    text-align: center;
+    width: 100%;
+    color: white;
+  }
+  button {
+    color: black;
+    position: relative;
+    bottom: 20px;
+  }
+  #play {
+    left: 0px;
+  }
+  #next {
+    left: 20px;
+  }
 }

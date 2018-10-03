@@ -9,7 +9,6 @@ const TimerList = (props) => {
       {
       Object
         .keys(timers)
-        .sort((a, b) => (timers[a].position > timers[b].position ? 1 : -1))
         .map(key => <Timer key={key} index={key} timer={timers[key]} loadTimer={loadTimer} />)
     }
     </div>

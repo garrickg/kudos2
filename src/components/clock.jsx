@@ -7,39 +7,38 @@ class Clock extends Component {
     time: 0,
     play: false,
     onBreak: false,
+    color: '#00A48C',
+    fill: 0,
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.loadedTimer !== prevProps.loadedTimer) {
-      const { duration } = this.props.loadedTimer;
+    const { loadedTimer } = { ...this.props };
+    if (loadedTimer !== prevProps.loadedTimer) {
+      const { duration } = loadedTimer;
       this.setTime(duration);
-      this.setState({
-        onBreak: false,
-      })
     }
   }
 
   setTime = (newTime = 0) => {
-    const newState = {...this.state};
+    const newState = { ...this.state };
     newState.time = newTime;
     this.setState(newState);
   }
 
-  format = (seconds) => {
-    if (seconds < 0) {
-      seconds *= -1;
-    }
-    const m = Math.floor(seconds % 3600 / 60);
+  format = (input) => {
+    const seconds = input >= 0 ? input : input * -1;
+    const m = Math.floor((seconds % 3600) / 60);
     const s = Math.floor(seconds % 3600 % 60);
-    const timeFormated = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
-    return timeFormated;
+    return `${(m < 10 ? '0' : '') + m}:${s < 10 ? '0' : ''}${s}`;
   }
 
   elapseTime = () => {
-    if (this.state.play === true || this.state.onBreak) {
-      const newState = {...this.state};
+    const { play } = this.state;
+    if (play) {
+      const newState = { ...this.state };
       newState.time -= 1;
       this.setState(newState);
+      this.fillClock();
     }
   }
 
@@ -49,16 +48,10 @@ class Clock extends Component {
   }
 
   play = () => {
-    const newState = {...this.state};
+    const newState = { ...this.state };
     newState.play = !newState.play;
     this.restartInterval();
     this.setState(newState);
-  }
-
-  reset = () => {
-    clearInterval(this.interval);
-    const { duration } = this.props.loadedTimer;
-    this.setTime(duration);
   }
 
   break = () => {
@@ -67,19 +60,56 @@ class Clock extends Component {
     this.restartInterval();
     this.setState({
       onBreak: true,
-    })
+      play: true,
+    });
+  }
+
+  next = (e) => {
+    const { nextTimer, updateTimer, loadedTimer } = { ...this.props };
+    const { onBreak, time } = this.state;
+    if (onBreak) {
+      this.setState({
+        onBreak: false,
+      });
+      nextTimer(e);
+    } else {
+      updateTimer(loadedTimer, time);
+      this.break();
+    }
+  }
+
+  fillClock = () => {
+    const { loadedTimer: { duration } } = { ...this.props };
+    const { time, onBreak } = this.state;
+    const color = time >= 0 ? '#00A48C' : '#F26721';
+    const fill = !onBreak ? 100 * (duration - time) / duration : 0;
+    this.setState({
+      color,
+      fill,
+    });
   }
 
   render() {
-    const { time, onBreak } = this.state;
-    return(
-      <div className="clock">
-      <p style={{color: time >= 0 ? "white" : "red"}}>{this.format(time)}</p>
-      <button type="button" onClick={this.play} disabled={this.state.loadedTimer}>{!this.state.play ? "Start" : "Pause"}</button>
-      <button type="button" onClick={this.reset}>Reset</button>
-      <button type="button" onClick={onBreak ? this.props.nextTimer : this.break}>Next</button>
-    </div>
-    )
+    const {
+      time, play, fill, color, onBreak,
+    } = this.state;
+    const { loadedTimer } = { ...this.props };
+    const style = {
+      borderColor: color,
+      background: `linear-gradient(0, ${color} ${fill}%, #787A7A ${fill}%)`,
+    };
+    return (
+      <div>
+        {!!loadedTimer && (
+          <div className="clock">
+            <h1>{!onBreak ? loadedTimer.description : 'Break'}</h1>
+            <p className="clockface" style={style}>{this.format(time)}</p>
+            <button id="play" type="button" onClick={this.play}>{!play ? 'Start' : 'Pause'}</button>
+            <button id="next" type="button" onClick={this.next}>Next</button>
+          </div>)
+        }
+      </div>
+    );
   }
 }
 

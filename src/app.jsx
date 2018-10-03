@@ -98,26 +98,29 @@ render() {
   const { loading, modalOpen, authed } = this.state;
   return loading === true ? <h1>Loading</h1> : (
     <BrowserRouter>
-      <div>
-        <div className="header">
-          <span>Kudos</span>
-          <img
-            onClick={this.openModal}
-            onKeyPress={e => e.which === 13 && this.openModal}
-            className="logo"
-            src={Logo}
-            alt="StarFish Logo"
-            tabIndex={0}
-          />
+      <Route render={props => (
+        <div>
+          <div className="header">
+            <span>{props.location.pathname === '/timer' ? 'Timer' : 'Kudos'}</span>
+            <img
+              onClick={this.openModal}
+              onKeyPress={e => e.which === 13 && this.openModal}
+              className="logo"
+              src={Logo}
+              alt="StarFish Logo"
+              tabIndex={0}
+            />
+          </div>
+          <Logout open={modalOpen} logout={this.logout} close={this.closeModal} />
+          <Switch>
+            <PublicRoute authed={authed} path="/login" component={Login} />
+            <PrivateRoute authed={authed} path="/kudos" component={Kudos} />
+            <PrivateRoute authed={authed} path="/timer" component={Timers} />
+            <PublicRoute component={NotFound} />
+          </Switch>
         </div>
-        <Logout open={modalOpen} logout={this.logout} close={this.closeModal} />
-        <Switch>
-          <PublicRoute authed={authed} path="/login" component={Login} />
-          <PrivateRoute authed={authed} path="/kudos" component={Kudos} />
-          <PrivateRoute authed={authed} path="/timer" component={Timers} />
-          <PublicRoute component={NotFound} />
-        </Switch>
-      </div>
+      )}
+      />
     </BrowserRouter>
   );
 }
