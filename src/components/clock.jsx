@@ -15,6 +15,7 @@ class Clock extends Component {
     const { loadedTimer } = { ...this.props };
     if (loadedTimer !== prevProps.loadedTimer) {
       const { duration } = loadedTimer;
+      this.toggleOnBreak();
       this.setTime(duration);
     }
   }
@@ -22,6 +23,12 @@ class Clock extends Component {
   setTime = (newTime = 0) => {
     const newState = { ...this.state };
     newState.time = newTime;
+    this.setState(newState);
+  }
+
+  toggleOnBreak = (state = false) => {
+    const newState = { ...this.state };
+    newState.onBreak = state;
     this.setState(newState);
   }
 
