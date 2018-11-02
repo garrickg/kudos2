@@ -32,11 +32,11 @@ class Clock extends Component {
     this.setState(newState);
   }
 
-  format = (input) => {
+  formatTime = (input) => {
     const seconds = input >= 0 ? input : input * -1;
     const m = Math.floor((seconds % 3600) / 60);
     const s = Math.floor(seconds % 3600 % 60);
-    return `${(m < 10 ? '0' : '') + m}:${s < 10 ? '0' : ''}${s}`;
+    return `${(m < 10 ? '0' : '')}${m}:${s < 10 ? '0' : ''}${s}`;
   }
 
   elapseTime = () => {
@@ -110,7 +110,7 @@ class Clock extends Component {
         {!!loadedTimer && (
           <div className="clock">
             <h1>{!onBreak ? loadedTimer.description : 'Break'}</h1>
-            <p className="clockface" style={style}>{this.format(time)}</p>
+            <p className="clockface" style={style}>{this.formatTime(time)}</p>
             <button id="play" type="button" onClick={this.play}>{!play ? 'Start' : 'Pause'}</button>
             <button id="next" type="button" onClick={this.next}>Next</button>
           </div>)
