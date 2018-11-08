@@ -88,8 +88,46 @@ class Clock extends Component {
   fillClock = () => {
     const { loadedTimer: { duration } } = { ...this.props };
     const { time, onBreak } = this.state;
-    const color = time >= 0 ? '#00A48C' : '#F26721';
     const fill = !onBreak ? 100 * (duration - time) / duration : 0;
+    let color;
+    switch (true) {
+      case (fill < 90):
+        color = '#00A48C';
+        break;
+      case (fill < 91):
+        color = '#02AC64';
+        break;
+      case (fill < 92):
+        color = '#05B539';
+        break;
+      case (fill < 93):
+        color = '#08BD0B';
+        break;
+      case (fill < 94):
+        color = '#3DC60C';
+        break;
+      case (fill < 95):
+        color = '#78CF0F';
+        break;
+      case (fill < 96):
+        color = '#B5D813';
+        break;
+      case (fill < 97):
+        color = '#E0CB17';
+        break;
+      case (fill < 98):
+        color = '#E99A1C';
+        break;
+      case (fill < 99):
+        color = '#F16620';
+        break;
+      case (fill > 99):
+        color = '#F26721';
+        break;
+      default:
+        break;
+    }
+    // const color = time >= 0 ? '#00A48C' : '#F26721';
     this.setState({
       color,
       fill,
@@ -100,7 +138,7 @@ class Clock extends Component {
     const {
       time, play, fill, color, onBreak,
     } = this.state;
-    const { loadedTimer } = { ...this.props };
+    const { loadedTimer, lastTimer } = { ...this.props };
     const style = {
       borderColor: color,
       background: `linear-gradient(0, ${color} ${fill}%, #787A7A ${fill}%)`,
@@ -112,7 +150,7 @@ class Clock extends Component {
             <h1>{!onBreak ? loadedTimer.description : 'Break'}</h1>
             <p className="clockface" style={style}>{this.formatTime(time)}</p>
             <button id="play" type="button" onClick={this.play}>{!play ? 'Start' : 'Pause'}</button>
-            <button id="next" type="button" onClick={this.next}>Next</button>
+            {!lastTimer && <button id="next" type="button" onClick={this.next}>Next</button>}
           </div>)
         }
       </div>

@@ -16,7 +16,7 @@ state = {
 // Timer object:
 // {
 //   stopTime: dateTime, time when switch to next timer, format('MMMM Do YYYY, h:mm:ss a')
-//   pos: integer, order in which timer appears
+//   position: integer, order in which timer appears
 //   description: string, short description of timer
 //   duration: seconds, desired length of timer
 //   elapsed: seconds, actual runtime
@@ -34,7 +34,7 @@ componentWillMount() {
     asArray: true,
     then() {
       const { timers } = this.state;
-      const sortedTimers = timers.sort((a, b) => (a.pos > b.pos ? 1 : -1));
+      const sortedTimers = timers.sort((a, b) => (a.position > b.position ? 1 : -1));
       this.setState({
         sortedTimers,
       });
@@ -92,11 +92,12 @@ addTimer = (e) => {
   e.preventDefault();
   const { target: { description: { value: description }, duration: { value: duration } } } = e;
   const newState = { ...this.state };
+  const position = newState.timers.length > 0 ? newState.timers[newState.timers.length - 1].position + 1 : 0;
   newState.timers.push({
     description,
     duration,
     elapsed: 0,
-    pos: newState.timers[newState.timers.length - 1].pos + 1,
+    position,
   });
   this.setState(newState);
   this.closeModal();
@@ -111,6 +112,7 @@ render() {
         loadedTimer={sortedTimers[loadedTimerIdx]}
         nextTimer={this.nextTimer}
         updateTimer={this.updateTimer}
+        lastTimer={loadedTimerIdx >= sortedTimers.length - 1}
       />
       <AddTimerModal open={modalOpen} close={this.closeModal} addTimer={this.addTimer} />
     </div>

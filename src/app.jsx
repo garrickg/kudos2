@@ -101,7 +101,7 @@ render() {
       <Route render={props => (
         <div>
           <div className="header">
-            <span>{props.location.pathname === '/timer' ? 'Timer' : 'Kudos'}</span>
+            <a href={props.location.pathname === '/timer' ? '/kudos' : '/timer'}>{props.location.pathname === '/timer' ? 'Timer' : 'Kudos'}</a>
             <img
               onClick={this.openModal}
               onKeyPress={e => e.which === 13 && this.openModal}

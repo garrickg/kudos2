@@ -225,6 +225,9 @@ body {
 .header .small {
   font-size: 12px; }
 
+.header a {
+  text-decoration: none; }
+
 .logo {
   height: 60px;
   float: right;
