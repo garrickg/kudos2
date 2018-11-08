@@ -92,7 +92,8 @@ addTimer = (e) => {
   e.preventDefault();
   const { target: { description: { value: description }, duration: { value: duration } } } = e;
   const newState = { ...this.state };
-  const position = newState.timers.length > 0 ? newState.timers[newState.timers.length - 1].position + 1 : 0;
+  const position = newState.timers.length > 0
+    ? newState.timers[newState.timers.length - 1].position + 1 : 0;
   newState.timers.push({
     description,
     duration,

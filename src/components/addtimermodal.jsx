@@ -37,17 +37,19 @@ const AddTimerModal = (props) => {
       contentLabel="Modal"
     >
       <form onSubmit={addTimer}>
-        <label>
+        <label htmlFor="description">
           Timer Description
           <input
+            id="description"
             name="description"
             type="text"
             style={{ color: 'black' }}
           />
         </label>
-        <label>
+        <label htmlFor="duration">
           Timer Duration
           <input
+            id="duration"
             name="duration"
             type="number"
             style={{ color: 'black' }}
