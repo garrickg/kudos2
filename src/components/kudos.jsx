@@ -1,4 +1,4 @@
-import '../app.css';
+import '../App.css';
 
 import Chance from 'chance';
 import Fuzzy from 'fuzzysearch';

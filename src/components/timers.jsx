@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
 import Base from '../base';
-import '../app.css';
+import '../App.css';
 import TimerList from './timerlist';
 import Clock from './clock';
 import AddTimerModal from './addtimermodal';

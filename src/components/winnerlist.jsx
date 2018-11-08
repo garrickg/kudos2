@@ -1,4 +1,4 @@
-import '../app.css';
+import '../App.css';
 
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';

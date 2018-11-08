@@ -1,5 +1,5 @@
 import React from 'react';
-import '../app.css';
+import '../App.css';
 
 const format = (input) => {
   const seconds = input >= 0 ? input : input * -1;
