@@ -9,9 +9,9 @@ const PeopleList = (props) => {
     filtered, nominate, search, people, add,
   } = { ...props };
   // Check if list of name is not empty from searching
-  const isSearching = filtered.length !== people.length;
+  const hasSearchResults = filtered.length > 0;
   // Render list of people already in DB, matching search string
-  if (!isSearching) {
+  if (hasSearchResults) {
     return (
       <div className="list-of-people">
         {
@@ -23,7 +23,7 @@ const PeopleList = (props) => {
                 key={key}
                 name={filtered[key]}
                 nominate={nominate}
-                search={isSearching}
+                search={!hasSearchResults}
                 highlight={search}
               />
             ))
@@ -38,7 +38,7 @@ const PeopleList = (props) => {
         index={people.length}
         add={add}
         name={search}
-        search={isSearching}
+        search={!hasSearchResults}
       />
     </div>
   );

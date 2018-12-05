@@ -17,13 +17,13 @@ const Person = (props) => {
     // Render name component
     return (
       <p className="person">
-        <a onClick={nominate} data-key={key} dangerouslySetInnerHTML={{ __html: fullName }} onKeyPress={e => e.keyCode === 13 && nominate} role="button" tabIndex={key} />
+        <a onClick={nominate} data-personkey={key} dangerouslySetInnerHTML={{ __html: fullName }} onKeyPress={e => e.keyCode === 13 && nominate} role="button" tabIndex={key} />
       </p>
     );
   } // If no search results in list, add new component for new name
   return (
     <p className="add-name">
-      <a onClick={add} data-key={index} data-search={name} onKeyPress={e => e.keyCode === 13 && nominate} role="button" tabIndex={0}>{`Add ${name}`}</a>
+      <a onClick={add} data-personkey={index} data-search={name} onKeyPress={e => e.keyCode === 13 && nominate} role="button" tabIndex={0}>{`Add ${name}`}</a>
     </p>
   );
 };

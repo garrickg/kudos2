@@ -66,8 +66,7 @@ class Kudos extends Component {
     // Get search string
     const search = e.target.value;
     // Copy current list of people from state
-    const { people: peopleArr } = this.state;
-    const people = [...peopleArr];
+    const { people } = { ...this.state };
     // Filter list of people based on fuzzy search
     const filtered = people.filter(person => Fuzzy(search.toLowerCase(), `${person.First} ${person.Last}`.toLowerCase()));
     this.setState({
@@ -79,9 +78,8 @@ class Kudos extends Component {
 
   nominate = (e) => {
     // Copy current list of nominees
-    const { nominees: nomineesArr, people } = this.state;
-    const nominees = [...nomineesArr];
-    const nomineeKey = e.target.dataset.key;
+    const { nominees, people } = { ...this.state };
+    const nomineeKey = e.target.dataset.personkey;
     const nomineeIndex = people.findIndex(person => person.key === nomineeKey);
     const nominee = {
       First: people[nomineeIndex].First,
@@ -110,9 +108,8 @@ class Kudos extends Component {
     // Instantiate Chance
     const chance = new Chance();
     // Copy list of nominees and winners
-    const { nominees: nomineesArr, winners: winnersArr } = this.state;
-    let nominees = [...nomineesArr];
-    const winners = [...winnersArr];
+    let { nominees } = { ...this.state };
+    const { winners } = { ...this.state };
     // Check if no nominees
     if (nominees.length > 0) {
       // Pick winner from list of nominees
@@ -134,8 +131,7 @@ class Kudos extends Component {
 
   undo = () => {
     // Copy list of nominees from state
-    const { nominees: nomineesArr } = this.state;
-    const nominees = [...nomineesArr];
+    const { nominees } = { ...this.state };
 
     if (nominees.length > 0) {
       nominees.pop();
@@ -154,11 +150,9 @@ class Kudos extends Component {
   add = (e) => {
     // Get first and last name, and create new key/index
     const [first = '', last = ''] = e.target.dataset.search.split(' ');
-    const { key } = e.target.dataset;
+    const { personkey: key } = e.target.dataset;
 
-    const { people: peopleArr, nominees: nomineesArr } = this.state;
-    const people = [...peopleArr];
-    const nominees = [...nomineesArr];
+    const { nominees, people } = { ...this.state };
     const person = {
       First: first,
       Last: last,
@@ -192,8 +186,7 @@ class Kudos extends Component {
 
   removeNominee = (e) => {
     const { key } = e.target.dataset;
-    const { nominees: nomineesArr } = this.state;
-    const nominees = [...nomineesArr];
+    const { nominees } = { ...this.state };
     const nomIdx = nominees.findIndex(nominee => nominee.key === key);
 
     nominees.splice(nomIdx, 1);
